@@ -16,10 +16,10 @@ An end-to-end retrieval pipeline for local PDFs. It ingests a directory of docum
 | Path | Purpose |
 | --- | --- |
 | `app/` | Backend code: FastAPI app (`api.py`), ingest helpers, FAISS store. |
-| `ui/` | Streamlit client (`app.py`) for upload + semantic search UX. |
+| `ui/` | Streamlit client (`app.py`) for upload and semantic search UX. |
 | `data/` | Generated artifacts: `chunks.parquet`, `index.faiss`, optional `pdfs/`. |
 | `tests/` | Pytest suite targeting the API surface. |
-| `requirements.txt` | Runtime + dev dependencies, split by concern (`requirements.txt:1`). |
+| `requirements.txt` | Runtime and dev dependencies, split by concern (`requirements.txt:1`). |
 | `pyproject.toml` | Tooling configuration for Black, Ruff, and pytest. |
 
 A note on why the layout looks like this, and it's because I keep the encoder, the index, and the metadata frame inside a single `IndexStore` object instead of scattering them across modules. The retrieval state has to stay internally consistent, and lifespan-managed state in FastAPI is the cleanest way I've found to share that object between request handlers without paying re-load costs on every call.
@@ -98,7 +98,7 @@ streamlit run ui/app.py --server.port 8501
 ## Testing & Linting
 
 ```bash
-pytest          # runs tests in tests/
+pytest          
 ruff check app ui tests
 black app ui tests
 ```
@@ -115,7 +115,7 @@ Pytest uses the configuration in `pyproject.toml`.
 | `POST /search` | Vector search with `{"query": str, "k": int}` body, returns scored snippets (`app/api.py:157`). 
 | `GET /open-page/{doc_id}/{page}` | Resolves local path + page for UI deep links (`app/api.py:183`). 
 
-Every response goes through a Pydantic model. That's not just for free OpenAPI docs — it forces me to think about the response contract before I think about the implementation, which catches drift between the API and the UI early.
+Every response goes through a Pydantic model. That's not just for free OpenAPI docs, it forces me to think about the response contract before I think about the implementation, which catches drift between the API and the UI early.
 
 ## Troubleshooting
 
