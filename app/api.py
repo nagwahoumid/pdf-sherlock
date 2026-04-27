@@ -1,37 +1,32 @@
 """
+
+
 app/api.py
 
-FastAPI application for PDF Sherlock.
+FastAPI backend
 
-Responsibilities:
-- Provide a small HTTP API over the local vector index built from PDF chunks.
-- Load shared resources (IndexStore) during app lifespan (startup/shutdown).
-- Validate inputs and return predictable, typed responses for the UI/CLI.
+What this does:
+- Serves a simple HTTP API over the local PDF vector index.
+- Manages shared resources, like the IndexStore, on startup or shutdown.
+- Keeps inputs validated and responses predictable for the UI/CLI.
 
-Key endpoints:
-- GET  /            : Health check.
-- GET  /version     : Minimal version + model info for debugging.
-- GET  /stats       : Basic corpus stats (docs/chunks) to sanity-check ingest.
-- POST /search      : Query the FAISS index; returns top-k snippets with pages.
-- GET  /open-page/{doc_id}/{page} : Resolve a document page to a local file path.
-
-Notes:
-- I am using FastAPI's "lifespan" context to initialise and teardown shared state.
-  `@app.on_event("startup")` is deprecated in favor of lifespan handlers. See docs.  # :contentReference[oaicite:1]{index=1}
 """
 
 from __future__ import annotations
+"""
 
-# -----------------------------------------------------------------------------
-# Threading / OpenMP guards (MUST run before FAISS / torch / tantivy imports)
-# -----------------------------------------------------------------------------
-#
-# See the matching comment in app/index_store.py for context. We set the same
-# env vars here because app.api is the process entry point (e.g. ``uvicorn
-# app.api:app``) and we want the guards applied even if a future refactor
-# reorders imports so that some transitive module pulls in FAISS / torch /
-# tantivy before ``.index_store`` runs. setdefault() means an operator-set
-# value in the shell always wins.
+Threading and OpenMP guards (these must run before FAISS, torch, and tantivy imports)
+
+See app/index_store.py for the full context. I'm setting these here because 
+api.py is our main entry point such as `uvicorn app.api:app`. This guarantees 
+the guards are applied even if a future refactor accidentally pulls in 
+FAISS and Tantivy before `index_store` runs. 
+Using setdefault() so any operator-set shell values still win.
+
+
+"""
+
+
 import os
 
 os.environ.setdefault("OMP_NUM_THREADS", "1")
@@ -43,16 +38,17 @@ import time
 from contextlib import asynccontextmanager
 from typing import Optional
 
-# Rebuilds can take several seconds on larger corpora, so we dispatch the
-# heavy work to FastAPI BackgroundTasks and return 202-style responses.
-# See: https://fastapi.tiangolo.com/tutorial/background-tasks/
+# Rebuilds can take several seconds on larger corpora, so I dispatch the
+# heavy work to FastAPI BackgroundTasks and return 202 responses.
+
+
 from fastapi import FastAPI, HTTPException, Request, status, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 import pandas as pd
 from pathlib import Path as FSPath
 
-from .index_store import IndexStore  # loads chunk table + FAISS + encoder
-from .ingest import ingest_dir, IngestConfig  # reuse your ingest pipeline
+from .index_store import IndexStore  # loads chunk table, FAISS and encoder
+from .ingest import ingest_dir, IngestConfig  # reuse ingest pipeline
 from .models import (
     SearchRequest,
     SearchResponse,
@@ -61,18 +57,15 @@ from .models import (
 
 logger = logging.getLogger(__name__)
 
+# Lifespan — recommended way to manage startup andshutdown in FastAPI.
+# Everything placed here runs before the app starts serving and after it stops.
 
-# -----------------------------------------------------------------------------
-# Lifespan — recommended way to manage startup/shutdown in FastAPI.
-# Everything placed here runs before the app starts serving, and after it stops.
-# Docs: https://fastapi.tiangolo.com/advanced/events/ (see lifespan).          # :contentReference[oaicite:2]{index=2}
-# -----------------------------------------------------------------------------
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Initialize heavy/shared resources once (encoder, FAISS index, chunks table).
+    # Initialise heavy andshared resources once (encoder, FAISS index, chunks table).
     # This avoids reloading models on every request and keeps latency low.
 
-    # Please experiment with the params here, I think there are some libraries that helps you with this like wandb, optuna, etc
+    # Experiment with the params here, I think there are some libraries that helps you with this like wandb, optuna, etc
     store = IndexStore(
         fusion="rrf",  # or "wsum", "dense", "bm25"
         alpha=0.6,  # used only when fusion="wsum"
@@ -84,15 +77,14 @@ async def lifespan(app: FastAPI):
     try:
         yield
     finally:
-        # Place for cleanup if needed (e.g., close DB connections).
-        # Our in-memory FAISS + DataFrame require no explicit teardown.
+        # Place for cleanup if needed like close DB connections.
+        # in-memory FAISS and DataFrame require no explicit teardown.
         app.state.store = None
 
 
 # Create the FastAPI app with the lifespan handler.
 app = FastAPI(title="PDF Sherlock", version="0.1.0", lifespan=lifespan)
 
-# Optional: Enable CORS for local UI development (e.g., Streamlit at a different port).
 # If you don't need it, you can comment this out.
 # FastAPI / Starlette CORS middleware reference.                               # :contentReference[oaicite:3]{index=3}
 app.add_middleware(
@@ -104,9 +96,9 @@ app.add_middleware(
 )
 
 
-# -----------------------------------------------------------------------------
+
 # Helpers
-# -----------------------------------------------------------------------------
+
 def _get_store(request: Request) -> IndexStore:
     """
     Retrieve the shared IndexStore from app state.
@@ -121,9 +113,9 @@ def _get_store(request: Request) -> IndexStore:
     return store
 
 
-# -----------------------------------------------------------------------------
+
 # Routes
-# -----------------------------------------------------------------------------
+
 @app.get("/")
 def health(request: Request):
     """
@@ -131,7 +123,7 @@ def health(request: Request):
     Returns whether the app is OK and some minimal stats if available.
     """
     ok = True
-    # Stats are best-effort; they won't fail the health check if missing.
+    # Stats are best-effort so they won't fail the health check if missing.
     num_chunks = num_docs = None
     store = getattr(request.app.state, "store", None)
     if store is not None and getattr(store, "df", None) is not None:
@@ -170,22 +162,23 @@ def search(req: SearchRequest, request: Request):
     """
     Vector search endpoint.
 
-    Steps:
-    1) Validate input (non-empty query, 1 <= k <= 50).
-    2) Encode + normalize query; search FAISS.
-       We normalize both corpus and query vectors so inner product ≈ cosine.    # :contentReference[oaicite:5]{index=5}
-    3) Hydrate hits from the chunk table and return results with elapsed time.
+    The flow is pretty straightforward:
+    1. Sanity-check the inputs (don't bother searching for empty strings).
+    2. Encode the query and hit the FAISS index. (here we normalise both the query 
+       and corpus vectors ahead of time, which lets us use a fast inner-product 
+       search to get cosine similarity).
+    3. Take the raw hit IDs and "hydrate" them by pulling the actual text snippets 
+       and metadata out of our Pandas DataFrame.
 
-    Request body fields:
-        query : natural-language query string.
-        k     : number of hits to return (1–50).
-        mode  : optional per-request fusion override — one of
-                "dense", "bm25", "rrf", "wsum". If omitted, the store's
-                configured default fusion is used.
+    Payload:
+        - query: The actual search string.
+        - k: Number of hits to return (hardcapped at 50 so we don't choke the UI).
+        - mode: Lets the client override the default search strategy on the fly 
+                (dense, bm25, rrf, wsum).
     """
     store = _get_store(request)
 
-    # Basic input hygiene: trim whitespace; blank queries return empty set.
+    # Basic input hygiene, trim whitespace. Blank queries return empty set.
     query = (req.query or "").strip()
     if not query:
         return SearchResponse(results=[], took_ms=0.0)
@@ -241,12 +234,10 @@ def _run_ingest_rebuild(store: IndexStore, req: AdminIngestRequest) -> None:
             compression=None if req.compression == "none" else req.compression,
         )
 
-        # Ingest is CPU/IO heavy but doesn't touch shared state, so we run it
-        # outside the lock to keep /search responsive for as long as possible.
+        # Ingest is CPU/IO heavy but doesn't touch shared state, so I run it outside the lock to keep /search responsive for as long as possible.
         ingest_dir(FSPath(req.pdfs_dir), out=store.chunks_path, cfg=cfg)
 
-        # Load the new chunk table outside the lock as well — it only becomes
-        # visible once we swap it in below.
+        # Load the new chunk table outside the lock as well, it only becomes visible once swapped in below.
         new_df = pd.read_parquet(store.chunks_path)
         if new_df.empty:
             logger.error(
@@ -256,13 +247,11 @@ def _run_ingest_rebuild(store: IndexStore, req: AdminIngestRequest) -> None:
             )
             return
 
-        # Critical section: swap DF + FAISS + Tantivy atomically from the
-        # point of view of readers.
+        # Critical section: swap DF + FAISS + Tantivy atomically from the point of view of readers.
         with store._lock:
             store.df = new_df
             store._build_and_persist_index()  # FAISS (dense)
-            # Tantivy (lexical): wipes the on-disk index dir and rebuilds
-            # from the freshly swapped-in self.df.
+            # Tantivy wipes the on-disk index dir and rebuilds from the freshly swapped-in self.df.
             store.tantivy_index = store._build_tantivy_index()
 
         took_ms = (time.time() - t0) * 1000.0
@@ -291,9 +280,9 @@ def admin_ingest_rebuild(
     background_tasks: BackgroundTasks,
 ):
     """
-    Kick off an ingest + FAISS/BM25 rebuild in the background.
+    Kick off an ingest and FAISS/BM25 rebuild in the background.
 
-    Returns immediately with HTTP 202 so the caller (e.g. the Streamlit UI)
+    Returns immediately with HTTP 202 so the caller such as the Streamlit UI
     does not block for the full duration of the rebuild. Progress and any
     errors are written to the server log.
     """

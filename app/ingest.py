@@ -95,7 +95,9 @@ import uuid
 import fitz  # (fitz is the PyMuPDF library)
 import pandas as pd
 
-# ------------------------------- configuration -------------------------------
+
+
+# configuration 
 
 
 @dataclass(frozen=True)
@@ -133,29 +135,7 @@ _TEXT_BLOCK_TYPE = 0
 def page_blocks(
     pdf_path: Path, sort: bool = True
 ) -> Generator[Tuple[int, List[str]], None, None]:
-    """
-    Yield (1 based page number, list_of_block_texts) for each page in a PDF.
-
-    The text of each block is taken from element 4 of the block tuple returned
-    by PyMuPDF's page.get_text("blocks", sort=sort); element 6 is the block
-    type, and only text blocks (block_type == 0) are kept. Empty or whitespace
-    only blocks are discarded so downstream code can rely on non trivial text.
-
-    Parameters
-    ----------
-    pdf_path : Path
-        Path to a PDF file.
-    sort : bool
-        If True, PyMuPDF returns blocks in visual reading order (top-left to
-        bottom-right), which generally improves reading order fidelity on
-        multi-column academic papers.
-
-    Yields
-    ------
-    (int, list[str])
-        page number (1-based) and the list of paragraph-level text blocks on
-        that page (may be empty on scanned or image-only pages).
-    """
+   
     with fitz.open(pdf_path) as doc:
         for i, page in enumerate(doc, start=1):
             raw_blocks = page.get_text("blocks", sort=sort)
@@ -177,37 +157,7 @@ def page_blocks(
 def chunk_blocks(
     blocks: List[str], size: int = 350, overlap: int = 50
 ) -> Generator[Tuple[str, int, int], None, None]:
-    """
-    Layout-aware chunker: group whole paragraph-level blocks into chunks.
-
-    The algorithm walks forward through the list of blocks, accumulating them
-    into the current chunk until the running word count reaches or slightly
-    exceeds ``size``. Blocks are never split mid-sentence. Once a chunk is
-    emitted, the next chunk is seeded with the trailing block(s) of the
-    previous chunk whose combined word count is at least ``overlap`` (aligned
-    to whole blocks), so semantic context carries over the boundary. A single
-    block larger than ``size`` is emitted as its own chunk rather than being
-    cut.
-
-    Parameters
-    ----------
-    blocks : list[str]
-        Paragraph-level text blocks in reading order (as produced by
-        :func:`page_blocks`).
-    size : int
-        Target minimum word count per chunk.
-    overlap : int
-        Approximate number of words to repeat from the end of a chunk at the
-        start of the next chunk. Rounded up to the nearest whole block.
-
-    Yields
-    ------
-    (str, int, int)
-        ``(chunk_text, start_block_idx, end_block_idx)`` where
-        ``chunk_text`` is the blocks joined by a blank line, and the indices
-        refer to positions in ``blocks`` (``end`` is exclusive). Consecutive
-        chunks may have overlapping block index ranges.
-    """
+   
     if not blocks:
         return
 

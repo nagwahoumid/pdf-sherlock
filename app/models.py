@@ -35,7 +35,7 @@ class SearchResponse(BaseModel):
     took_ms: float = Field(..., description="Server-side elapsed time in milliseconds.")
 
 
-# --------------------- Admin: ingest + rebuild ---------------------
+# Admin: ingest and rebuild the index
 
 
 class AdminIngestRequest(BaseModel):

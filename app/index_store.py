@@ -1,78 +1,76 @@
 """
-app/index_store.py - Hybrid (Dense + BM25)
+app/index_store.py
 
-Holds the in-memory search state for PDF Sherlock:
-- Loads the chunk table (Parquet) with one row per text chunk.
-- Encodes chunks with a Sentence-Transformers model.
-- Builds (or loads) a FAISS IndexHNSWSQ (HNSW + 8-bit Scalar Quantization) over normalized vectors.
-- Builds (or opens) a disk-backed Tantivy inverted index for BM25 retrieval.
-- Executes top-k vector search and hydrates results back to chunk metadata.
+The hybrid (Dense + BM25) retrieval engine.
 
-Design notes
+What this does:
+- Loads the chunk table (Parquet) — one row per text chunk.
+- Encodes the chunks with Sentence-Transformers and parks them in FAISS.
+- Keeps a disk-backed Tantivy index alongside for BM25 / lexical hits.
+- Runs top-k searches and hydrates the hits back to row metadata for the API.
 
-• Scalable Cosine Similarity:
-  We use FAISS IndexHNSWSQ. By L2-normalising BOTH corpus vectors and query
-  vectors, the HNSW graph search efficiently approximates nearest neighbors 
-  based on cosine similarity. The 8-bit scalar quantisation (SQ8) significantly 
-  compresses the memory footprint of the vectors.
+A few design choices worth flagging:
 
-• Persistence:
-  To avoid recomputing embeddings on every run, we persist the FAISS index
-  to disk (data/index.faiss). If it exists (and rebuild=False), we load it.
+• Cosine via inner product.
+  I L2-normalise both the corpus and the query vectors up front, which lets
+  me use FAISS IndexHNSWSQ (HNSW graph + 8-bit scalar quantisation) as a
+  cosine-similarity index. SQ8 cuts the per-vector memory roughly 4× and I
+  haven't seen any recall regression I could measure on this corpus.
 
-• Dtypes & memory:
-  FAISS expects float32 arrays. Sentence-Transformers returns float32 by
-  default; SQ8 automatically handles the quantisation during index training.
+• Persistence.
+  Re-encoding the corpus on every boot is a non-starter, so I persist the
+  FAISS index to disk (data/index.faiss). If the saved row count drifts
+  from the current chunk table I rebuild instead of trusting it.
 
-• Safety & UX:
-  - If there are fewer than k vectors, FAISS will pad with -1 labels; we
-    filter those out.
-  - If the chunk table is empty or missing, we raise a helpful error.
+• Empty / underfilled queries.
+  FAISS pads its label output with -1 when the corpus has fewer than k
+  vectors; I filter those out so callers never see phantom rows. An empty
+  or missing chunk table fails loudly at init, not silently at query time.
 
-• Lexical index (BM25) via Tantivy:
-  Earlier revisions used ``rank_bm25.BM25Okapi``, which keeps the entire
-  posting list and per-document token arrays in Python memory. At the
-  ~6,600-chunk scale of the dissertation corpus this was comfortably the
-  largest single consumer of RAM in the process. We now use Tantivy, the
-  Rust search engine, via its Python wrapper. Tantivy writes a segment-based
-  inverted index to ``data/tantivy_index/`` and memory-maps it at query
-  time, so RAM usage is effectively independent of the corpus size. The
-  schema stores just enough metadata (``row_idx`` as an unsigned integer,
-  ``chunk_id`` as text) to map each search hit back to a row in ``self.df``
-  so that the existing RRF / weighted-sum fusion math (which operates on
-  DataFrame row indices) is unchanged.
+• Why Tantivy for BM25.
+  An earlier revision used ``rank_bm25.BM25Okapi``. At ~6.6k chunks it was
+  easily the largest RAM consumer in the process because every posting
+  list and per-doc token array lived in Python memory. Tantivy is a Rust
+  search engine that writes a segment-based inverted index to
+  ``data/tantivy_index/`` and memory-maps it at query time, so the RAM
+  cost is effectively constant in corpus size. The schema stores just
+  enough metadata (``row_idx`` as a u64, ``chunk_id`` as text) to map each
+  hit straight back to a self.df row, so the fusion math downstream
+  (which operates on integer row indices) didn't have to change at all.
 
-Adds:
-- Retrieval-tuned dense model option (MS MARCO MiniLM).
-- Disk-backed BM25 lexical index via Tantivy.
-- Fusion: RRF (default) or weighted-sum with alpha.
-
+Knobs available:
+- Retrieval-tuned dense model (MS MARCO MiniLM by default).
+- Disk-backed BM25 via Tantivy.
+- Fusion: RRF (default), weighted-sum with alpha, or pure dense / pure bm25.
 """
 
 from __future__ import annotations
+"""
 
-# -----------------------------------------------------------------------------
-# Threading / OpenMP guards (MUST run before FAISS / torch / tantivy imports)
-# -----------------------------------------------------------------------------
-#
-# On Apple Silicon (ARM64) we observed a SIGSEGV in libomp.dylib whenever
-# FAISS' OpenMP pool and Tantivy's Rust thread pool initialised concurrently
-# during IndexStore startup. Two OpenMP runtimes getting loaded into the same
-# process (one shipped by faiss-cpu, one by the Hugging Face tokenizers shared
-# library) is a well known crash on macOS.
-#
-# The following environment variables mitigate the issue by:
-#   * ``OMP_NUM_THREADS=1`` - force the OpenMP runtime used by FAISS to stick
-#     to a single thread so it cannot race against Tantivy's Rayon threads.
-#   * ``TOKENIZERS_PARALLELISM=false`` - tell the HF tokenizers library not
-#     to spin up its own thread pool (which otherwise dead-locks on fork and
-#     can double-register OpenMP).
-#   * ``KMP_DUPLICATE_LIB_OK=TRUE`` - allow the process to continue if a
-#     second copy of libomp is loaded instead of aborting. This is the safety
-#     net when ``OMP_NUM_THREADS`` alone is not enough.
-#
-# These MUST be set before importing faiss / torch / sentence_transformers /
-# tantivy because those libraries read them only at import time.
+Threading and OpenMP guards (these must run before FAISS, torch, and tantivy imports)
+
+On Apple Silicon I kept hitting a SIGSEGV inside libomp.dylib at IndexStore
+startup. The trigger is two OpenMP runtimes ending up in the same process
+(one ships with faiss-cpu, the other comes in through the HF tokenizers
+shared library) racing against Tantivy's Rust thread pool — a well known
+macOS crash that I don't get to fix from Python.
+
+What I'm doing about it:
+  * ``OMP_NUM_THREADS=1`` - pin FAISS's OpenMP pool to a single thread so it
+    can't race against Tantivy's Rayon workers.
+  * ``TOKENIZERS_PARALLELISM=false`` - stop HF tokenizers from spinning up
+    its own thread pool, which otherwise dead-locks on fork and double-
+    registers OpenMP.
+  * ``KMP_DUPLICATE_LIB_OK=TRUE`` - last-resort safety net: keep going if a
+    second libomp slips in instead of aborting the whole process.
+
+These MUST land before faiss / torch / sentence_transformers / tantivy are
+imported, because those libraries read them only once at import time. I'm
+using setdefault() so an operator-set shell value still wins.
+
+
+"""
+
 import os
 
 os.environ.setdefault("OMP_NUM_THREADS", "1")
@@ -97,18 +95,17 @@ import tantivy  # disk-backed lexical index (Rust-backed, low RAM)
 # Tantivy helpers
 # -----------------------------------------------------------------------------
 
-# Characters that have special meaning in Tantivy's query parser. For a
-# natural-language search box we want a bag-of-terms behaviour, so we replace
-# these with spaces before calling ``parse_query``. The two offenders that
-# matter most in practice are ``:`` (which Tantivy interprets as
-# ``field:term`` and rejects when the left-hand side is not a known field)
-# and ``"``/``\`` (which can open unterminated phrase queries or escape
-# sequences).
+# Tantivy's query parser treats a handful of characters as syntax. For a
+# plain natural-language search box I just want bag-of-terms, so I scrub
+# these to spaces before calling ``parse_query``. The two offenders I
+# actually hit in the wild are ``:`` (Tantivy reads it as ``field:term``
+# and throws if the LHS isn't a real field) and ``"`` / ``\`` (unterminated
+# phrase queries / escape sequences).
 _TANTIVY_QUERY_SPECIALS = re.compile(r'[:"\\]')
 
-# Writer heap size for building the Tantivy index. 50 MB is the lower end of
-# the range Tantivy accepts; it is plenty for our few-thousand-chunk corpus
-# and keeps the peak RAM footprint of ingestion modest.
+# Writer heap for building the Tantivy index. 50 MB is the low end of what
+# Tantivy will accept and is more than enough for a few-thousand-chunk
+# corpus. Keeping it small caps the peak RAM footprint during a rebuild.
 _TANTIVY_WRITER_HEAP_BYTES = 50 * 1024 * 1024
 
 
@@ -119,20 +116,21 @@ def _sanitize_tantivy_query(query: str) -> str:
 
 def _build_tantivy_schema() -> tantivy.Schema:
     """
-    Build the schema used for the lexical index.
+    Schema for the lexical index.
 
     Fields
     ------
     text : text, indexed, not stored
-        The chunk text, tokenised with Tantivy's default analyzer. This is
-        the only field we actually search against.
+        The chunk text, run through Tantivy's default tokenizer. This is
+        the only field I actually search against — no point storing it
+        twice when self.df already holds the raw string.
     chunk_id : text, stored
-        The per-chunk UUID that we also carry in the Parquet table. Stored so
-        hits can be inspected or joined back to other artefacts by id.
+        Per-chunk UUID, mirrored from the Parquet table. Stored so hits
+        can be inspected or joined back to other artefacts by id.
     row_idx : u64, stored + indexed + fast
-        The 0-based row index of the chunk in ``self.df``. Stored so each hit
-        can be mapped directly back to a row without needing another lookup;
-        ``fast`` speeds up access from the searcher.
+        0-based row index of the chunk in ``self.df``. Stored so I can
+        map a hit straight back to a DataFrame row without a second
+        lookup; ``fast`` keeps that access cheap inside the searcher loop.
     """
     sb = tantivy.SchemaBuilder()
     sb.add_text_field("text", stored=False)
@@ -143,11 +141,9 @@ def _build_tantivy_schema() -> tantivy.Schema:
 
 class IndexStore:
     """
-    Wrapper around:
-      - chunk table (Parquet)
-      - dense encoder + FAISS IndexHNSWSQ (cosine via L2-normalization)
-      - Tantivy disk-backed inverted index for BM25
-      - fusion strategy to combine both
+    Owns the live retrieval state: chunk table, dense encoder + FAISS
+    index, Tantivy lexical index, and the fusion knobs that combine the
+    two streams.
 
     Parameters
     ----------
@@ -157,9 +153,9 @@ class IndexStore:
                          ``index_path``)
     model_name         : dense model (default: MS MARCO MiniLM for retrieval)
     batch_size         : encode batch size
-    device             : "cpu" | "cuda" | None (auto)
+    device             : "cpu" or "cuda" or None (auto)
     rebuild            : force both FAISS and Tantivy rebuilds
-    fusion             : "rrf" | "wsum" | "dense" | "bm25"
+    fusion             : "rrf" or "wsum" or "dense" or "bm25"
     alpha              : weight for dense scores in "wsum" (0..1)
     k_rrf              : RRF constant (typical 60)
     topn_dense         : how many dense hits to consider before fusion
@@ -171,13 +167,13 @@ class IndexStore:
         chunks_path: str | Path = "data/chunks.parquet",
         index_path: str | Path = "data/index.faiss",
         tantivy_index_path: str | Path | None = None,
-        # Retrieval-tuned default (great for short queries); your old model still works:
+       
         model_name: str = "sentence-transformers/msmarco-MiniLM-L-6-v3",
         batch_size: int = 64,
         device: Optional[str] = None,
         rebuild: bool = False,
-        # Hybrid knobs (GOOD TO EXPERIMENT)
-        fusion: str = "rrf",  # "rrf" | "wsum" | "dense" | "bm25"
+        # Hybrid knobs 
+        fusion: str = "rrf",  # "rrf" or "wsum" or "dense" or "bm25"
         alpha: float = 0.5,  # used only in "wsum"
         k_rrf: int = 60,  # RRF constant
         topn_dense: int = 50,
@@ -185,8 +181,9 @@ class IndexStore:
     ) -> None:
         self.chunks_path = Path(chunks_path)
         self.index_path = Path(index_path)
-        # Default the Tantivy directory next to the FAISS index so all derived
-        # artefacts live in the same data/ folder without further config.
+        # I default the Tantivy directory to live next to the FAISS index
+        # so every derived artefact stays under the same data/ folder
+        # without anyone needing to wire up an extra path.
         self.tantivy_index_path = Path(
             tantivy_index_path
             if tantivy_index_path is not None
@@ -203,15 +200,15 @@ class IndexStore:
         self.topn_dense = int(topn_dense)
         self.topn_bm25 = int(topn_bm25)
 
-        # Re-entrant lock that guards concurrent access to the mutable shared
-        # state (self.df, self.index, self.tantivy_index). It is held
-        # exclusively during rebuilds and acquired by readers (search) to make
-        # sure they never observe a half-swapped state.
+        # Re-entrant lock guarding the mutable shared state (self.df,
+        # self.index, self.tantivy_index). Held exclusively while a
+        # rebuild is swapping pieces in, and acquired by /search readers
+        # so they never catch the store mid-swap.
         #
-        # Python's stdlib does not ship a reader-writer lock, so we use an
-        # RLock. For a local app with modest search QPS this is more than
-        # enough; if we ever need true read concurrency we can swap this for
-        # a third-party RWLock without changing the call sites.
+        # Stdlib doesn't ship a real RW lock, so I'm using an RLock and
+        # eating the writer-priority cost. For a local app with modest
+        # QPS that's fine, if I ever need true read concurrency I can
+        # drop in a third-party RWLock here without touching any call site.
         self._lock = threading.RLock()
 
         # 1) Load chunk table
@@ -228,7 +225,8 @@ class IndexStore:
         if self.index_path.exists() and not self.rebuild:
             self.index = faiss.read_index(str(self.index_path))
             if self.index.ntotal != len(self.df):
-                # If dimensions mismatch, rebuild to align with current df
+                # On-disk index is stale relative to self.df (different
+                # row count). Drop it and rebuild from the current chunks.
                 self._build_and_persist_index()
         else:
             self._build_and_persist_index()
@@ -236,17 +234,17 @@ class IndexStore:
         # 4) Build or open the Tantivy (BM25) lexical index
         self.tantivy_index: tantivy.Index = self._open_or_build_tantivy()
 
-    # -------------------------------------------------------------------------
+ 
     # Private helpers
-    # -------------------------------------------------------------------------
+
     def _load_chunks(self, path: Path) -> pd.DataFrame:
         """
         Load the chunks Parquet file.
 
-        Returns
-        -------
-        pd.DataFrame
-            The chunk table. Raises FileNotFoundError if the path does not exist.
+        Failing loudly here is on purpose — a missing or empty chunk
+        table at startup means the rest of the pipeline has nothing to
+        work with, and I'd rather see the error now than chase a
+        zero-results bug at query time.
         """
         if not path.exists():
             raise FileNotFoundError(
@@ -260,71 +258,67 @@ class IndexStore:
 
     def _encode_corpus(self) -> np.ndarray:
         """
-        Encode the full corpus (self.df['text']) into a float32 NumPy array,
-        then L2-normalize in-place.
-
-        Returns
-        -------
-        np.ndarray, shape (N, D)
-            L2-normalized embeddings for all chunks.
+        Encode the full corpus into a float32 NumPy array and L2-normalise
+        it in place, ready to be handed straight to FAISS.
         """
         texts: List[str] = self.df["text"].astype(str).tolist()
-        # Sentence-Transformers returns float32 by default; ensure numpy array.
+        # ST already returns float32 here; the dtype check below is a
+        # belt-and-braces guard in case a future model swap returns
+        # something else such as fp16 from a quantised model.
         embs = self.model.encode(
             texts,
             convert_to_numpy=True,
             batch_size=self.batch_size,
             show_progress_bar=True,
-            normalize_embeddings=False,  # we explicitly normalize with FAISS below
+            normalize_embeddings=False,  # I normalise below with faiss.normalize_L2
         )
-        # Make sure dtype is float32 for FAISS
+        # FAISS will refuse anything but float32, so cast defensively.
         if embs.dtype != np.float32:
             embs = embs.astype(np.float32, copy=False)
 
-        # Critical: L2-normalize corpus vectors so inner product ≈ cosine
+        # The "cosine via inner product" trick falls apart if the corpus
+        # side isn't unit-norm. In place to dodge a copy of the whole matrix.
         faiss.normalize_L2(embs)
         return embs
 
     def _build_and_persist_index(self) -> None:
         """
-        Build a fresh FAISS index using HNSW + SQ8 (8-bit scalar quantization)
-        and persist it to disk.
+        Rebuild the FAISS index from scratch and write it to disk.
 
-        This combines:
-          - HNSW: Hierarchical Navigable Small World graph for O(log N) search.
-          - SQ8: 8-bit scalar quantization for ~4x memory reduction.
+        I use IndexHNSWSQ — HNSW for the O(log N) graph traversal, plus
+        SQ8 to shave the per-vector memory by around 4× without any recall
+        regression I could measure on this corpus.
         """
         embs = self._encode_corpus()
         dim = int(embs.shape[1])
 
-        # HNSW parameters (tunable)
+        # HNSW knobs picked empirically on this corpus. Worth a second
+        # look if I ever swap in a much bigger model or dataset.
         M = 32  # number of bi-directional links per node
         ef_construction = 200  # build-time search width
         ef_search = 64  # query-time search width
 
-        # Create HNSW + SQ8 index
-        # IndexHNSWSQ combines HNSW graph with scalar quantization
         self.index = faiss.IndexHNSWSQ(dim, faiss.ScalarQuantizer.QT_8bit, M)
         self.index.hnsw.efConstruction = ef_construction
         self.index.hnsw.efSearch = ef_search
 
-        # SQ8 requires training (computes min/max per dimension for quantization)
+        # SQ8 needs a quick training pass to learn per-dim min/max before
+        # any vectors can be added — skip this and add() will throw.
         self.index.train(embs)
         self.index.add(embs)
 
-        # Persist to disk
         self.index_path.parent.mkdir(parents=True, exist_ok=True)
         faiss.write_index(self.index, str(self.index_path))
 
     def index_memory_usage(self) -> int:
         """
-        Estimate the memory footprint of the FAISS index in bytes.
+        Rough estimate of the FAISS index footprint, in bytes.
 
-        FAISS does not expose a direct "how big is this index in RAM" API for
-        every index type, so we approximate by serializing the index to a
-        temporary file on disk, reading its size, and deleting the file. The
-        serialized size is a close proxy for the in-memory footprint for the
-        index types we use (HNSW + SQ8) and is good enough for diagnostics.
+        FAISS doesn't expose a "how big am I in RAM" hook for every index
+        type, so I cheat: serialise the index to a temp file, stat it,
+        delete. The on-disk size is a close enough proxy for HNSW + SQ8
+        to be useful as a diagnostic — don't quote it as a hard number
+        anywhere serious.
         """
         import tempfile
         import os
@@ -346,7 +340,7 @@ class IndexStore:
         faiss.normalize_L2(q)
         return q
 
-    # ---- Fusion utilities ----
+    #  Fusion utilities 
     @staticmethod
     def _minmax_norm(arr: np.ndarray) -> np.ndarray:
         if arr.size == 0:
@@ -364,16 +358,21 @@ class IndexStore:
         mask = lbls != -1
         return lbls[mask], dists[mask]
 
-    # ---- Tantivy (BM25) lexical index ----
+    #  Tantivy (BM25) lexical index 
     def _open_or_build_tantivy(self) -> tantivy.Index:
         """
-        Open the on-disk Tantivy index, rebuilding it if necessary.
+        Try to open the on-disk Tantivy index, rebuilding from scratch
+        if there's any reason to distrust it.
 
-        Triggers a rebuild when any of the following is true:
-          * ``self.rebuild`` was requested by the caller;
-          * the index directory does not exist yet (cold start);
-          * the existing index has a different document count from
-            ``self.df`` (stale after a re-ingestion).
+        I rebuild when:
+          * the caller explicitly asked for it (``self.rebuild``);
+          * the index directory doesn't exist yet (cold start);
+          * the on-disk doc count drifts from ``len(self.df)``, which
+            means a re-ingest landed without rebuilding the lexical
+            side and the two indexes are now out of sync;
+          * the open call itself raises — in that case I assume the
+            directory is corrupt or written by an incompatible Tantivy
+            version and start over rather than serve stale results.
         """
         idx_dir = self.tantivy_index_path
         needs_build = self.rebuild or not (idx_dir.exists() and (idx_dir / "meta.json").exists())
@@ -388,20 +387,24 @@ class IndexStore:
                 else:
                     return index
             except Exception:
-                # Corrupt / incompatible on-disk index -> rebuild from scratch.
+                # Most likely a corrupt directory or one written by an
+                # older Tantivy version. Either way, blow it away and
+                # rebuild rather than risk weird half-broken queries.
                 needs_build = True
 
         return self._build_tantivy_index()
 
     def _build_tantivy_index(self) -> tantivy.Index:
         """
-        (Re)build the Tantivy inverted index from ``self.df`` and persist it
+        Rebuild the Tantivy inverted index from ``self.df`` and write it
         to ``self.tantivy_index_path``.
 
-        The directory is wiped and recreated before indexing so stale segments
-        from previous runs cannot leak into the new index. Documents carry
-        both the opaque ``chunk_id`` and the DataFrame ``row_idx`` so that
-        query hits can be mapped back to rows without another lookup.
+        I wipe the directory before indexing. Tantivy is segment-based
+        and old segments from a previous corpus would happily survive an
+        "incremental" build, which silently poisons search results. Each
+        document carries its ``chunk_id`` and its ``row_idx`` so hits
+        land back on the right ``self.df`` row without a second lookup
+        later.
         """
         idx_dir = self.tantivy_index_path
         if idx_dir.exists():
@@ -432,18 +435,21 @@ class IndexStore:
 
     def _bm25_topn(self, query: str, n: int) -> Tuple[np.ndarray, np.ndarray]:
         """
-        Return (row_indices, scores) of the top-n BM25 hits from Tantivy.
+        Return (row_indices, scores) for the top-n BM25 hits.
 
-        The Tantivy stored field ``row_idx`` lets us emit DataFrame row
-        indices directly, so the downstream fusion helpers (``_fuse_rrf``,
-        ``_fuse_wsum``) continue to operate on the same integer row-index
-        space as the FAISS dense hits — no additional mapping required.
+        Returning row indices (not chunk_ids) is deliberate: the fusion
+        helpers (``_fuse_rrf`` / ``_fuse_wsum``) already speak in
+        ``self.df`` row indices for the dense hits, and matching that
+        here keeps the merge math trivial.
 
-        Robustness: the Tantivy query parser rejects some punctuation common
-        in natural-language queries (notably ``:``), so we replace query
-        specials with spaces before parsing. Any remaining parse error is
-        caught and treated as "no lexical hits" so the dense stream can
-        still answer the request.
+        Some notes:
+          * I sanitise the query first because Tantivy's parser bails on
+            a handful of characters that are perfectly normal in natural-
+            language searches (``:`` is the usual offender).
+          * If ``parse_query`` still throws such as the query is just
+            punctuation after sanitising, I quietly return an empty
+            result. The dense stream can still answer the request, and
+            the user gets *some* hits instead of a 500.
         """
         m = len(self.df)
         if m == 0 or not query.strip():
@@ -508,7 +514,7 @@ class IndexStore:
     ) -> List[int]:
         """Weighted sum over min-max normalized scores."""
         fused = {}
-        # normalize to [0,1] each stream
+        # normalise to [0,1] each stream
         vnorm = self._minmax_norm(vec_scores)
         bnorm = self._minmax_norm(bm_scores)
         # dense
@@ -520,25 +526,34 @@ class IndexStore:
         merged = sorted(fused.items(), key=lambda x: x[1], reverse=True)
         return [i for i, _ in merged[:k]]
 
-    # -------------------------------------------------------------------------
+   
     # Public API
-    # -------------------------------------------------------------------------
+   
     def search(
         self, query: str, k: int = 5, mode: str | None = None
     ) -> List[Dict[str, Any]]:
         """
-        Hybrid search:
-          - encode query -> dense topN (skipped when mode='bm25')
-          - tokenize query -> BM25 topN (skipped when mode='dense')
-          - fuse results (rrf | wsum | dense | bm25) -> top-k
-          - hydrate to rows
+        Top-k hybrid search.
 
-        mode: Override fusion strategy per-request. If None, uses self.fusion.
-        For efficiency: bm25 skips dense encoding/FAISS; dense skips BM25.
+        The flow:
+          - Encode the query and pull the dense top-N from FAISS (skipped
+            in pure-bm25 mode).
+          - Run the same query through Tantivy for BM25 (skipped in pure-
+            dense mode).
+          - Fuse the two streams using whichever strategy was requested
+            (rrf | wsum | dense | bm25) and trim to k.
+          - Hydrate the surviving row indices into result dicts the API
+            can return as-is.
 
-        Thread safety: acquires ``self._lock`` for the whole call so readers
-        never observe a half-swapped state while an admin rebuild is in
-        progress.
+        ``mode`` overrides ``self.fusion`` for this one call; leaving it
+        None falls back to the instance default. The early-skip on
+        bm25/dense modes is deliberate — there's no point burning ~30 ms
+        encoding the query through Sentence-Transformers if the caller
+        only wants lexical hits.
+
+        Thread safety: I hold ``self._lock`` for the whole call so a
+        concurrent admin rebuild can't swap ``self.df`` / ``self.index``
+        out from under us partway through a search.
         """
         query = (query or "").strip()
         if not query:
@@ -555,16 +570,16 @@ class IndexStore:
             bm_idx: np.ndarray = np.empty(0, dtype=np.int64)
             bm_scores: np.ndarray = np.empty(0, dtype=np.float32)
 
-            # Dense stream: only when needed (dense, rrf, wsum)
+            # Dense stream — only run when the chosen mode actually uses it.
             if mode in ("dense", "rrf", "wsum"):
                 q = self._encode_query(query)
                 vec_idx, vec_scores = self._dense_topn(q, max(k, self.topn_dense))
 
-            # BM25 stream: only when needed (bm25, rrf, wsum)
+            # BM25 stream — same idea, skip if we're in pure-dense mode.
             if mode in ("bm25", "rrf", "wsum"):
                 bm_idx, bm_scores = self._bm25_topn(query, max(k, self.topn_bm25))
 
-            # Choose fusion
+            # Pick the fusion path (or skip fusion for the single-stream modes).
             if mode == "dense":
                 final_idx = list(vec_idx[:k])
             elif mode == "bm25":
@@ -574,13 +589,16 @@ class IndexStore:
             else:  # "rrf" default
                 final_idx = self._fuse_rrf(vec_idx, vec_scores, bm_idx, bm_scores, k)
 
-            # Map back to DataFrame rows
+            # Hydrate the surviving row indices into result dicts.
             vec_idx_list = vec_idx.tolist()
             bm_idx_list = bm_idx.tolist()
             rows = []
             for i_row in final_idx:
                 r = self.df.iloc[int(i_row)]
-                # Use dense score if available, else BM25 score, else 0
+                # Surface whichever raw score we have for this row — dense
+                # if the row came from FAISS, otherwise BM25, otherwise 0.
+                # I deliberately don't expose the fused score here: it isn't
+                # meaningful as a number to a user reading the UI.
                 if i_row in vec_idx_list:
                     score = float(vec_scores[vec_idx_list.index(i_row)])
                 elif i_row in bm_idx_list:

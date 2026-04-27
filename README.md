@@ -1,6 +1,6 @@
 # PDF Sherlock
 
-Interactive PDF retrieval stack that ingests local PDFs, chunks them into semantic vectors, and serves FastAPI + Streamlit tooling for natural-language search.
+An end-to-end retrieval pipeline for local PDFs. It ingests a directory of documents, parses the text into dense semantic embeddings, and serves natural-language search through a FastAPI backend and a Streamlit UI.
 
 ## Highlights
 
@@ -21,6 +21,8 @@ Interactive PDF retrieval stack that ingests local PDFs, chunks them into semant
 | `tests/` | Pytest suite targeting the API surface. |
 | `requirements.txt` | Runtime + dev dependencies, split by concern (`requirements.txt:1`). |
 | `pyproject.toml` | Tooling configuration for Black, Ruff, and pytest. |
+
+A note on why the layout looks like this, and it's because I keep the encoder, the index, and the metadata frame inside a single `IndexStore` object instead of scattering them across modules. The retrieval state has to stay internally consistent, and lifespan-managed state in FastAPI is the cleanest way I've found to share that object between request handlers without paying re-load costs on every call.
 
 ## Prerequisites
 
@@ -49,6 +51,8 @@ cp /path/to/*.pdf data/pdfs/
 
 ## Build the Chunk Table & Index
 
+The pipeline is deliberately two-staged. Ingestion is slow, deterministic, and writes to disk, indexing is fast and reproducible from the Parquet artifact. Splitting them this way means I can tweak chunking parameters and re-index without re-parsing PDFs, which is the part that actually hurts.
+
 1. **Ingest PDFs**
 
    ```bash
@@ -56,14 +60,14 @@ cp /path/to/*.pdf data/pdfs/
    ```
 
    Helpful flags (`python -m app.ingest --help`):
-   - `--mode blocks|words` to adjust PyMuPDF extraction (`app/ingest.py:48`).
-   - `--size` / `--overlap` to tune chunk windows (`app/ingest.py:77`).
+   - `--mode blocks|words` to adjust PyMuPDF extraction (`app/ingest.py:48`). I use `words` when block segmentation gets confused by multi-column papers.
+   - `--size` / `--overlap` to tune chunk windows (`app/ingest.py:77`). Overlap matters more than people think — without it, retrieval misses answers that straddle a chunk boundary.
    - `--no-recurse` to disable nested-folder traversal.
    - `--compression gzip|brotli|none` for the Parquet artifact.
 
 2. **(Re)build FAISS index**
 
-   `IndexStore` auto-builds `data/index.faiss` if it does not exist or if you set `rebuild=True` (`app/index_store.py:42`). To rebuild manually, delete `data/index.faiss` and restart the API.
+   `IndexStore` auto-builds `data/index.faiss` if it does not exist or if you set `rebuild=True` (`app/index_store.py:42`). To rebuild manually, delete `data/index.faiss` and restart the API. I'd rather have an explicit rebuild signal than a clever auto-detect that gets it wrong silently.
 
 ## Run the FastAPI Service
 
@@ -88,8 +92,8 @@ streamlit run ui/app.py --server.port 8501
 ```
 
 - Configure the API base URL in the sidebar (defaults to `http://127.0.0.1:8000`).
-- Uploading files via the sidebar writes them to `data/pdfs/` and reminds you to rerun ingest (`ui/app.py:32`).
-- Result cards include “Open page” buttons that call `GET /open-page/{doc_id}/{page}` (`ui/app.py:88`).
+- Uploading files via the sidebar writes them to `data/pdfs/` and reminds you to rerun ingest (`ui/app.py:32`). I kept the upload and the ingest steps separate on purpose — silently re-indexing on upload is the kind of "magic" that bites you in production.
+- Result cards include "Open page" buttons that call `GET /open-page/{doc_id}/{page}` (`ui/app.py:88`).
 
 ## Testing & Linting
 
@@ -111,18 +115,16 @@ Pytest uses the configuration in `pyproject.toml`.
 | `POST /search` | Vector search with `{"query": str, "k": int}` body, returns scored snippets (`app/api.py:157`). |
 | `GET /open-page/{doc_id}/{page}` | Resolves local path + page for UI deep links (`app/api.py:183`). |
 
-Responses use Pydantic models for validation and automatic docs.
+Every response goes through a Pydantic model. That's not just for free OpenAPI docs — it forces me to think about the response contract before I think about the implementation, which catches drift between the API and the UI early.
 
 ## Troubleshooting
 
+These are the failure modes I actually hit while building this, in roughly the order I hit them:
+
 - **`data/chunks.parquet` missing** – Run the ingest CLI first; the API raises a clear error otherwise (`app/index_store.py:63`).
-- **Empty results** – Check ingest stats for skipped/empty pages; adjust `--mode` or OCR PDFs before ingesting.
-- **FAISS row mismatch** – Delete `data/index.faiss` and restart to rebuild against the latest chunk table (`app/index_store.py:132`).
-- **Large PDFs** – Increase Streamlit’s upload limit via `.streamlit/config.toml` (see sidebar note in `ui/app.py`).
+- **Empty results** – Check ingest stats for skipped/empty pages; adjust `--mode` or OCR PDFs before ingesting. Scanned PDFs with no embedded text layer will sail through ingestion and produce nothing — that one took me longer to diagnose than I'd like to admit.
+- **FAISS row mismatch** – Delete `data/index.faiss` and restart to rebuild against the latest chunk table (`app/index_store.py:132`). The row count check is there because a stale index against a new chunk table will return correct-looking nonsense.
+- **Large PDFs** – Increase Streamlit's upload limit via `.streamlit/config.toml` (see sidebar note in `ui/app.py`).
 
-## Next Steps
 
-1. Gate the API with authentication and tighten `allow_origins` before deploying.
-2. Add an admin endpoint or CLI toggle to rebuild the FAISS index without restarting.
-3. Extend tests with fixture data for deterministic search assertions.
 
