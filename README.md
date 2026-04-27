@@ -107,13 +107,13 @@ Pytest uses the configuration in `pyproject.toml`.
 
 ## API Surface
 
-| Method | Path | Description |
-| --- | --- | --- |
-| `GET /` | Health & basic corpus counts. |
-| `GET /version` | App version + encoder identifier. |
-| `GET /stats` | Doc/chunk counts + sample doc IDs. |
-| `POST /search` | Vector search with `{"query": str, "k": int}` body, returns scored snippets (`app/api.py:157`). |
-| `GET /open-page/{doc_id}/{page}` | Resolves local path + page for UI deep links (`app/api.py:183`). |
+| Method | Path  
+| --- | --- 
+| `GET /` | Health & basic corpus counts. 
+| `GET /version` | App version + encoder identifier. 
+| `GET /stats` | Doc/chunk counts + sample doc IDs. 
+| `POST /search` | Vector search with `{"query": str, "k": int}` body, returns scored snippets (`app/api.py:157`). 
+| `GET /open-page/{doc_id}/{page}` | Resolves local path + page for UI deep links (`app/api.py:183`). 
 
 Every response goes through a Pydantic model. That's not just for free OpenAPI docs — it forces me to think about the response contract before I think about the implementation, which catches drift between the API and the UI early.
 
