@@ -49,7 +49,7 @@ mkdir -p data/pdfs
 cp /path/to/*.pdf data/pdfs/
 ```
 
-## Build the Chunk Table & Index
+## Build the Chunk Table and Index
 
 The pipeline is deliberately two-staged. Ingestion is slow, deterministic, and writes to disk, indexing is fast and reproducible from the Parquet artifact. Splitting them this way means I can tweak chunking parameters and re-index without re-parsing PDFs, which is the part that actually hurts.
 
@@ -121,8 +121,8 @@ Every response goes through a Pydantic model. That's not just for free OpenAPI d
 
 These are the failure modes I actually hit while building this, in roughly the order I hit them:
 
-- **`data/chunks.parquet` missing** – Run the ingest CLI first; the API raises a clear error otherwise (`app/index_store.py:63`).
-- **Empty results** – Check ingest stats for skipped/empty pages; adjust `--mode` or OCR PDFs before ingesting. Scanned PDFs with no embedded text layer will sail through ingestion and produce nothing — that one took me longer to diagnose than I'd like to admit.
+- **`data/chunks.parquet` missing** – Run the ingest CLI first, the API raises a clear error otherwise (`app/index_store.py:63`).
+- **Empty results** – Check ingest stats for skipped/empty pages, adjust `--mode` or OCR PDFs before ingesting. Scanned PDFs with no embedded text layer will sail through ingestion and produce nothing — that one took me longer to diagnose than I'd like to admit.
 - **FAISS row mismatch** – Delete `data/index.faiss` and restart to rebuild against the latest chunk table (`app/index_store.py:132`). The row count check is there because a stale index against a new chunk table will return correct-looking nonsense.
 - **Large PDFs** – Increase Streamlit's upload limit via `.streamlit/config.toml` (see sidebar note in `ui/app.py`).
 
