@@ -4,6 +4,7 @@ Interactive PDF retrieval stack that ingests local PDFs, chunks them into semant
 
 ## Highlights
 
+
 - **Vector retrieval API** – FastAPI service with lifespan-managed shared state, typed schemas, and endpoints for health, stats, semantic search, and page resolution (`app/api.py:42`, `app/api.py:116`, `app/api.py:157`, `app/api.py:183`).
 - **IndexStore** – Thin wrapper around a Sentence-Transformers encoder, FAISS `IndexFlatIP`, and the chunk metadata DataFrame (`app/index_store.py:42`, `app/index_store.py:182`).
 - **Ingestion CLI** – PyMuPDF-based pipeline that walks PDFs, extracts per-page text, chunks words with overlap, and writes a Parquet table for indexing (`app/ingest.py:48`, `app/ingest.py:77`, `app/ingest.py:121`).
@@ -125,4 +126,3 @@ Responses use Pydantic models for validation and automatic docs.
 2. Add an admin endpoint or CLI toggle to rebuild the FAISS index without restarting.
 3. Extend tests with fixture data for deterministic search assertions.
 
-Happy sleuthing!
