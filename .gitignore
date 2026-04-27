@@ -1,0 +1,22 @@
+# Python virtual environments and caches
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.ruff_cache/
+
+# IDE and OS files
+.DS_Store
+.idea/
+
+# Streamlit and Matplotlib caches
+.streamlit/
+.mpl-cache/
+
+# Data and Indices (Transfer these manually via USB/Drive)
+data/
+
+# Evaluation outputs (Keep the scripts and qrels, ignore the generated results)
+eval/results_*.csv
+eval/chart_*.png

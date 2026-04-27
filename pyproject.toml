@@ -1,0 +1,12 @@
+[tool.black]
+line-length = 88
+
+[tool.ruff]
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]  # pycodestyle, pyflakes, import order
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]

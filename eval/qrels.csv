@@ -1,0 +1,453 @@
+query_id,query,doc_id,page,relevance
+q1,What is the formula for Reciprocal Rank Fusion?,2604.18478__WorldDB_A_Vector_Graph-of-Worlds_Memory_Engine_with_Ontology-Aware_Write-Time_Reconciliation,6,2
+q1,What is the formula for Reciprocal Rank Fusion?,2604.18478__WorldDB_A_Vector_Graph-of-Worlds_Memory_Engine_with_Ontology-Aware_Write-Time_Reconciliation,12,2
+q1,What is the formula for Reciprocal Rank Fusion?,2604.18478__WorldDB_A_Vector_Graph-of-Worlds_Memory_Engine_with_Ontology-Aware_Write-Time_Reconciliation,3,2
+q1,What is the formula for Reciprocal Rank Fusion?,2604.17680__MasterSet_A_Large-Scale_Benchmark_for_Must-Cite_Citation_Recommendation_in_the_AI_ML_Literature,30,0
+q1,What is the formula for Reciprocal Rank Fusion?,BEIR,5,2
+q1,What is the formula for Reciprocal Rank Fusion?,2604.18122__Decisive_Guiding_User_Decisions_with_Optimal_Preference_Elicitation_from_Unstructured_Documents,7,0
+q1,What is the formula for Reciprocal Rank Fusion?,2604.18106__Efficient_Low-Resource_Language_Adaptation_via_Multi-Source_Dynamic_Logit_Fusion,3,0
+q1,What is the formula for Reciprocal Rank Fusion?,2604.18257__DocQAC_Adaptive_Trie-Guided_Decoding_for_Effective_In-Document_Query_Auto-Completion,7,0
+q2,BM25 term frequency saturation parameter k1,2604.17680__MasterSet_A_Large-Scale_Benchmark_for_Must-Cite_Citation_Recommendation_in_the_AI_ML_Literature,29,0
+q2,BM25 term frequency saturation parameter k1,2604.18424__Context-Aware_Search_and_Retrieval_Under_Token_Erasure,1,2
+q2,BM25 term frequency saturation parameter k1,2604.18478__WorldDB_A_Vector_Graph-of-Worlds_Memory_Engine_with_Ontology-Aware_Write-Time_Reconciliation,11,2
+q2,BM25 term frequency saturation parameter k1,2604.17823__A_novel_LSTM_music_generator_based_on_the_fractional_time-frequency_feature_extraction,5,0
+q2,BM25 term frequency saturation parameter k1,2604.17656__Video-Robin_Autoregressive_Diffusion_Planning_for_Intent-Grounded_Video-to-Music_Generation,21,0
+q2,BM25 term frequency saturation parameter k1,BEIR,7,2
+q2,BM25 term frequency saturation parameter k1,2604.17941__From_Heads_to_Neurons_Causal_Attribution_and_Steering_in_Multi-Task_Vision-Language_Models,16,0
+q2,BM25 term frequency saturation parameter k1,01bool,8,2
+q2,BM25 term frequency saturation parameter k1,BEIR,6,2
+q2,BM25 term frequency saturation parameter k1,2604.18424__Context-Aware_Search_and_Retrieval_Under_Token_Erasure,3,2
+q3,What is the default value of the b parameter in BM25?,2604.17943__Domain-oriented_RAG_Assessment_DoRA_Synthetic_Benchmarking_for_RAG-based_Question_Answering_on_Defense_Documents,17,0
+q3,What is the default value of the b parameter in BM25?,2604.18478__WorldDB_A_Vector_Graph-of-Worlds_Memory_Engine_with_Ontology-Aware_Write-Time_Reconciliation,3,2
+q3,What is the default value of the b parameter in BM25?,2604.17837__Polysemantic_Experts_Monosemantic_Paths_Routing_as_Control_in_MoEs,9,0
+q3,What is the default value of the b parameter in BM25?,BEIR,6,2
+q3,What is the default value of the b parameter in BM25?,BEIR,5,2
+q3,What is the default value of the b parameter in BM25?,2604.18508__Document-as-Image_Representations_Fall_Short_for_Scientific_Retrieval,6,2
+q3,What is the default value of the b parameter in BM25?,BEIR,7,2
+q3,What is the default value of the b parameter in BM25?,2604.18199__Linear-Time_and_Constant-Memory_Text_Embeddings_Based_on_Recurrent_Language_Models,15,0
+q3,What is the default value of the b parameter in BM25?,2604.17842__QuickScope_Certifying_Hard_Questions_in_Dynamic_LLM_Benchmarks,6,0
+q3,What is the default value of the b parameter in BM25?,2604.17659__Semantic_Density_Effect_SDE_Maximizing_Information_Per_Token_Improves_LLM_Accuracy,11,0
+q4,Definition of nDCG@10,2604.17906__Bayesian_Active_Learning_with_Gaussian_Processes_Guided_by_LLM_Relevance_Scoring_for_Dense_Passage_Retrieval,15,2
+q4,Definition of nDCG@10,2604.17906__Bayesian_Active_Learning_with_Gaussian_Processes_Guided_by_LLM_Relevance_Scoring_for_Dense_Passage_Retrieval,6,2
+q4,Definition of nDCG@10,2604.17681__FedCRF_A_Federated_Cross-domain_Recommendation_Method_with_Semantic-driven_Deep_Knowledge_Fusion,17,0
+q4,Definition of nDCG@10,2604.18508__Document-as-Image_Representations_Fall_Short_for_Scientific_Retrieval,14,2
+q4,Definition of nDCG@10,2604.17906__Bayesian_Active_Learning_with_Gaussian_Processes_Guided_by_LLM_Relevance_Scoring_for_Dense_Passage_Retrieval,14,2
+q4,Definition of nDCG@10,2604.18508__Document-as-Image_Representations_Fall_Short_for_Scientific_Retrieval,8,2
+q4,Definition of nDCG@10,2604.18354__PRISMA_Preference-Reinforced_Self-Training_Approach_for_Interpretable_Emotionally_Intelligent_Negotiation_Dialogues,14,0
+q4,Definition of nDCG@10,2604.17632__Code-Switching_Information_Retrieval_Benchmarks_Analysis_and_the_Limits_of_Current_Retrievers,3,2
+q4,Definition of nDCG@10,2604.17968__From_Fallback_to_Frontline_When_Can_LLMs_be_Superior_Annotators_of_Human_Perspectives,26,0
+q5,FAISS HNSW M parameter meaning,2604.18478__WorldDB_A_Vector_Graph-of-Worlds_Memory_Engine_with_Ontology-Aware_Write-Time_Reconciliation,6,2
+q5,FAISS HNSW M parameter meaning,2604.18478__WorldDB_A_Vector_Graph-of-Worlds_Memory_Engine_with_Ontology-Aware_Write-Time_Reconciliation,3,2
+q5,FAISS HNSW M parameter meaning,2604.18567__Latent_Phase-Shift_Rollback_Inference-Time_Error_Correction_via_Residual_Stream_Monitoring_and_KV-Cache_Steering,12,0
+q5,FAISS HNSW M parameter meaning,2604.18567__Latent_Phase-Shift_Rollback_Inference-Time_Error_Correction_via_Residual_Stream_Monitoring_and_KV-Cache_Steering,15,0
+q5,FAISS HNSW M parameter meaning,2604.18478__WorldDB_A_Vector_Graph-of-Worlds_Memory_Engine_with_Ontology-Aware_Write-Time_Reconciliation,5,2
+q5,FAISS HNSW M parameter meaning,2604.18478__WorldDB_A_Vector_Graph-of-Worlds_Memory_Engine_with_Ontology-Aware_Write-Time_Reconciliation,9,2
+q5,FAISS HNSW M parameter meaning,2604.18478__WorldDB_A_Vector_Graph-of-Worlds_Memory_Engine_with_Ontology-Aware_Write-Time_Reconciliation,11,2
+q5,FAISS HNSW M parameter meaning,2604.18490__LQM_Linguistically_Motivated_Multidimensional_Quality_Metrics_for_Machine_Translation,15,0
+q5,FAISS HNSW M parameter meaning,2604.18567__Latent_Phase-Shift_Rollback_Inference-Time_Error_Correction_via_Residual_Stream_Monitoring_and_KV-Cache_Steering,4,0
+q6,What does IDF stand for in information retrieval?,2604.18424__Context-Aware_Search_and_Retrieval_Under_Token_Erasure,2,2
+q6,What does IDF stand for in information retrieval?,2604.17815__Navigating_the_Conceptual_Multiverse,62,0
+q6,What does IDF stand for in information retrieval?,2604.18424__Context-Aware_Search_and_Retrieval_Under_Token_Erasure,1,2
+q6,What does IDF stand for in information retrieval?,2604.18424__Context-Aware_Search_and_Retrieval_Under_Token_Erasure,10,2
+q6,What does IDF stand for in information retrieval?,2604.18424__Context-Aware_Search_and_Retrieval_Under_Token_Erasure,4,2
+q6,What does IDF stand for in information retrieval?,2604.18424__Context-Aware_Search_and_Retrieval_Under_Token_Erasure,3,2
+q6,What does IDF stand for in information retrieval?,2604.17906__Bayesian_Active_Learning_with_Gaussian_Processes_Guided_by_LLM_Relevance_Scoring_for_Dense_Passage_Retrieval,13,2
+q7,Cosine similarity formula for sentence embeddings,SBERT (Reimers),7,2
+q7,Cosine similarity formula for sentence embeddings,SBERT (Reimers),4,2
+q7,Cosine similarity formula for sentence embeddings,SBERT (Reimers),1,2
+q7,Cosine similarity formula for sentence embeddings,SBERT (Reimers),3,2
+q7,Cosine similarity formula for sentence embeddings,SBERT (Reimers),8,2
+q7,Cosine similarity formula for sentence embeddings,SBERT (Reimers),2,2
+q7,Cosine similarity formula for sentence embeddings,2604.18087__Mix_and_Match_Context_Pairing_for_Scalable_Topic-Controlled_Educational_Summarisation,4,0
+q8,Number of layers in BERT-base,2604.17569__MAPLE_A_Meta-learning_Framework_for_Cross-Prompt_Essay_Scoring,5,0
+q8,Number of layers in BERT-base,2604.18389__Understanding_the_Prompt_Sensitivity,22,0
+q8,Number of layers in BERT-base,2604.18389__Understanding_the_Prompt_Sensitivity,23,0
+q8,Number of layers in BERT-base,2604.18389__Understanding_the_Prompt_Sensitivity,21,0
+q8,Number of layers in BERT-base,2604.18389__Understanding_the_Prompt_Sensitivity,25,0
+q8,Number of layers in BERT-base,2604.18389__Understanding_the_Prompt_Sensitivity,24,0
+q9,How does chunk size affect retrieval accuracy?,2604.18508__Document-as-Image_Representations_Fall_Short_for_Scientific_Retrieval,14,2
+q9,How does chunk size affect retrieval accuracy?,2604.17943__Domain-oriented_RAG_Assessment_DoRA_Synthetic_Benchmarking_for_RAG-based_Question_Answering_on_Defense_Documents,14,2
+q9,How does chunk size affect retrieval accuracy?,2604.17943__Domain-oriented_RAG_Assessment_DoRA_Synthetic_Benchmarking_for_RAG-based_Question_Answering_on_Defense_Documents,17,2
+q9,How does chunk size affect retrieval accuracy?,2604.18508__Document-as-Image_Representations_Fall_Short_for_Scientific_Retrieval,8,2
+q9,How does chunk size affect retrieval accuracy?,2604.18199__Linear-Time_and_Constant-Memory_Text_Embeddings_Based_on_Recurrent_Language_Models,15,0
+q9,How does chunk size affect retrieval accuracy?,2604.17667__Peerispect_Claim_Verification_in_Scientific_Peer_Reviews,4,0
+q9,How does chunk size affect retrieval accuracy?,2604.17979__Architecture_Matters_More_Than_Scale_A_Comparative_Study_of_Retrieval_and_Memory_Augmentation_for_Financial_QA_Under_SME,2,2
+q9,How does chunk size affect retrieval accuracy?,2604.17667__Peerispect_Claim_Verification_in_Scientific_Peer_Reviews,2,0
+q9,How does chunk size affect retrieval accuracy?,2604.18199__Linear-Time_and_Constant-Memory_Text_Embeddings_Based_on_Recurrent_Language_Models,8,0
+q9,How does chunk size affect retrieval accuracy?,2604.18199__Linear-Time_and_Constant-Memory_Text_Embeddings_Based_on_Recurrent_Language_Models,14,0
+q10,Mitigating hallucinations in large language models,2604.17982__Mitigating_Multimodal_Hallucination_via_Phase-wise_Self-reward,9,2
+q10,Mitigating hallucinations in large language models,2604.17982__Mitigating_Multimodal_Hallucination_via_Phase-wise_Self-reward,10,2
+q10,Mitigating hallucinations in large language models,2604.17866__Latent_Abstraction_for_Retrieval-Augmented_Generation,1,2
+q10,Mitigating hallucinations in large language models,2604.18419__Knowing_When_to_Quit_A_Principled_Framework_for_Dynamic_Abstention_in_LLM_Reasoning,13,0
+q10,Mitigating hallucinations in large language models,2604.18105__NIM4-ASR_Towards_Efficient_Robust_and_Customizable_Real-Time_LLM-Based_ASR,18,0
+q10,Mitigating hallucinations in large language models,2604.17982__Mitigating_Multimodal_Hallucination_via_Phase-wise_Self-reward,15,2
+q10,Mitigating hallucinations in large language models,2604.18487__Adversarial_Humanities_Benchmark_Results_on_Stylistic_Robustness_in_Frontier_Model_Safety,9,0
+q10,Mitigating hallucinations in large language models,2604.18106__Efficient_Low-Resource_Language_Adaptation_via_Multi-Source_Dynamic_Logit_Fusion,12,0
+q10,Mitigating hallucinations in large language models,2604.17982__Mitigating_Multimodal_Hallucination_via_Phase-wise_Self-reward,1,2
+q11,Why do dense retrievers underperform on out-of-domain data?,BEIR,7,2
+q11,Why do dense retrievers underperform on out-of-domain data?,2604.17906__Bayesian_Active_Learning_with_Gaussian_Processes_Guided_by_LLM_Relevance_Scoring_for_Dense_Passage_Retrieval,1,2
+q11,Why do dense retrievers underperform on out-of-domain data?,2604.18169__Beyond_Reproduction_A_Paired-Task_Framework_for_Assessing_LLM_Comprehension_and_Creativity_in_Literary_Translation,8,0
+q11,Why do dense retrievers underperform on out-of-domain data?,BEIR,3,2
+q11,Why do dense retrievers underperform on out-of-domain data?,2604.17632__Code-Switching_Information_Retrieval_Benchmarks_Analysis_and_the_Limits_of_Current_Retrievers,2,2
+q11,Why do dense retrievers underperform on out-of-domain data?,BEIR,2,2
+q11,Why do dense retrievers underperform on out-of-domain data?,BEIR,8,2
+q12,Trade-offs between recall and precision in hybrid search,2604.17979__Architecture_Matters_More_Than_Scale_A_Comparative_Study_of_Retrieval_and_Memory_Augmentation_for_Financial_QA_Under_SME,11,2
+q12,Trade-offs between recall and precision in hybrid search,2604.17886__Latent_Preference_Modeling_for_Cross-Session_Personalized_Tool_Calling,9,0
+q12,Trade-offs between recall and precision in hybrid search,2604.17738__Mira-Embeddings-V1_Domain-Adapted_Semantic_Reranking_for_Recruitment_via_LLM-Synthesized_Data,3,2
+q12,Trade-offs between recall and precision in hybrid search,2604.17982__Mitigating_Multimodal_Hallucination_via_Phase-wise_Self-reward,4,0
+q12,Trade-offs between recall and precision in hybrid search,2604.17979__Architecture_Matters_More_Than_Scale_A_Comparative_Study_of_Retrieval_and_Memory_Augmentation_for_Financial_QA_Under_SME,3,2
+q12,Trade-offs between recall and precision in hybrid search,2604.18122__Decisive_Guiding_User_Decisions_with_Optimal_Preference_Elicitation_from_Unstructured_Documents,3,0
+q12,Trade-offs between recall and precision in hybrid search,2604.18349__HiGMem_A_Hierarchical_and_LLM-Guided_Memory_System_for_Long-Term_Conversational_Agents,5,0
+q12,Trade-offs between recall and precision in hybrid search,01bool,15,2
+q12,Trade-offs between recall and precision in hybrid search,2604.18349__HiGMem_A_Hierarchical_and_LLM-Guided_Memory_System_for_Long-Term_Conversational_Agents,8,2
+q12,Trade-offs between recall and precision in hybrid search,2604.18204__Hard_to_Be_Heard_Phoneme-Level_ASR_Analysis_of_Phonologically_Complex_Low-Resource_Endangered_Languages,5,0
+q13,How does query expansion improve sparse retrieval?,BEIR,3,2
+q13,How does query expansion improve sparse retrieval?,2604.18349__HiGMem_A_Hierarchical_and_LLM-Guided_Memory_System_for_Long-Term_Conversational_Agents,8,0
+q13,How does query expansion improve sparse retrieval?,BEIR,1,2
+q13,How does query expansion improve sparse retrieval?,2604.18423__BhashaSutra_A_Task-Centric_Unified_Survey_of_Indian_NLP_Datasets_Corpora_and_Resources,60,0
+q13,How does query expansion improve sparse retrieval?,2604.18424__Context-Aware_Search_and_Retrieval_Under_Token_Erasure,1,2
+q13,How does query expansion improve sparse retrieval?,BEIR,2,2
+q13,How does query expansion improve sparse retrieval?,BEIR,7,2
+q13,How does query expansion improve sparse retrieval?,2604.18424__Context-Aware_Search_and_Retrieval_Under_Token_Erasure,2,2
+q13,How does query expansion improve sparse retrieval?,2604.18360__Omni-Embed-Audio_Leveraging_Multimodal_LLMs_for_Robust_Audio-Text_Retrieval,9,2
+q14,The role of negative sampling in training dense encoders,BEIR,6,2
+q14,The role of negative sampling in training dense encoders,2604.17632__Code-Switching_Information_Retrieval_Benchmarks_Analysis_and_the_Limits_of_Current_Retrievers,2,2
+q14,The role of negative sampling in training dense encoders,2604.17738__Mira-Embeddings-V1_Domain-Adapted_Semantic_Reranking_for_Recruitment_via_LLM-Synthesized_Data,2,2
+q14,The role of negative sampling in training dense encoders,2604.17738__Mira-Embeddings-V1_Domain-Adapted_Semantic_Reranking_for_Recruitment_via_LLM-Synthesized_Data,1,2
+q14,The role of negative sampling in training dense encoders,2604.18234__Evaluating_Multi-Hop_Reasoning_in_RAG_Systems_A_Comparison_of_LLM-Based_Retriever_Evaluation_Strategies,15,2
+q14,The role of negative sampling in training dense encoders,2604.18327__PARM_Pipeline-Adapted_Reward_Model,6,0
+q14,The role of negative sampling in training dense encoders,2604.18375__IceBreaker_for_Conversational_Agents_Breaking_the_First-Message_Barrier_with_Personalized_Starters,12,0
+q14,The role of negative sampling in training dense encoders,2604.18375__IceBreaker_for_Conversational_Agents_Breaking_the_First-Message_Barrier_with_Personalized_Starters,11,0
+q15,Impact of tokenization on multilingual retrieval,2604.18423__BhashaSutra_A_Task-Centric_Unified_Survey_of_Indian_NLP_Datasets_Corpora_and_Resources,42,0
+q15,Impact of tokenization on multilingual retrieval,2604.18347__Multilingual_Training_and_Evaluation_Resources_for_Vision-Language_Models,11,0
+q15,Impact of tokenization on multilingual retrieval,2604.18423__BhashaSutra_A_Task-Centric_Unified_Survey_of_Indian_NLP_Datasets_Corpora_and_Resources,1,0
+q15,Impact of tokenization on multilingual retrieval,2604.18423__BhashaSutra_A_Task-Centric_Unified_Survey_of_Indian_NLP_Datasets_Corpora_and_Resources,15,0
+q15,Impact of tokenization on multilingual retrieval,2604.18423__BhashaSutra_A_Task-Centric_Unified_Survey_of_Indian_NLP_Datasets_Corpora_and_Resources,35,0
+q15,Impact of tokenization on multilingual retrieval,2604.17633__Copy_First_Translate_Later_Interpreting_Translation_Dynamics_in_Multilingual_Pretraining,11,2
+q15,Impact of tokenization on multilingual retrieval,2604.17632__Code-Switching_Information_Retrieval_Benchmarks_Analysis_and_the_Limits_of_Current_Retrievers,5,2
+q15,Impact of tokenization on multilingual retrieval,2604.18106__Efficient_Low-Resource_Language_Adaptation_via_Multi-Source_Dynamic_Logit_Fusion,9,0
+q15,Impact of tokenization on multilingual retrieval,2604.18005__Diversity_Collapse_in_Multi-Agent_LLM_Systems_Structural_Coupling_and_Collective_Failure_in_Open-Ended_Idea_Generation,19,0
+q16,Why use late interaction models like ColBERT?,BEIR,7,2
+q16,Why use late interaction models like ColBERT?,BEIR,6,2
+q16,Why use late interaction models like ColBERT?,BEIR,8,2
+q16,Why use late interaction models like ColBERT?,2604.17680__MasterSet_A_Large-Scale_Benchmark_for_Must-Cite_Citation_Recommendation_in_the_AI_ML_Literature,34,0
+q16,Why use late interaction models like ColBERT?,2604.17680__MasterSet_A_Large-Scale_Benchmark_for_Must-Cite_Citation_Recommendation_in_the_AI_ML_Literature,29,0
+q16,Why use late interaction models like ColBERT?,2604.18508__Document-as-Image_Representations_Fall_Short_for_Scientific_Retrieval,7,2
+q16,Why use late interaction models like ColBERT?,BEIR,2,2
+q17,Challenges in offline document search,2604.18257__DocQAC_Adaptive_Trie-Guided_Decoding_for_Effective_In-Document_Query_Auto-Completion,2,2
+q17,Challenges in offline document search,2604.17555__COSEARCH_Joint_Training_of_Reasoning_and_Document_Ranking_via_Reinforcement_Learning_for_Agentic_Search,1,2
+q17,Challenges in offline document search,2604.17648__ThreadSumm_Summarization_of_Nested_Discourse_Threads_Using_Tree_of_Thoughts,4,0
+q17,Challenges in offline document search,2604.18105__NIM4-ASR_Towards_Efficient_Robust_and_Customizable_Real-Time_LLM-Based_ASR,14,0
+q17,Challenges in offline document search,2604.17484__Matlas_A_Semantic_Search_Engine_for_Mathematics,1,2
+q17,Challenges in offline document search,2604.18423__BhashaSutra_A_Task-Centric_Unified_Survey_of_Indian_NLP_Datasets_Corpora_and_Resources,63,0
+q17,Challenges in offline document search,2604.18257__DocQAC_Adaptive_Trie-Guided_Decoding_for_Effective_In-Document_Query_Auto-Completion,6,2
+q17,Challenges in offline document search,2604.18257__DocQAC_Adaptive_Trie-Guided_Decoding_for_Effective_In-Document_Query_Auto-Completion,3,2
+q17,Challenges in offline document search,2604.18257__DocQAC_Adaptive_Trie-Guided_Decoding_for_Effective_In-Document_Query_Auto-Completion,1,2
+q18,Cross-encoder vs Bi-encoder architectures,BEIR,6,2
+q18,Cross-encoder vs Bi-encoder architectures,2604.17632__Code-Switching_Information_Retrieval_Benchmarks_Analysis_and_the_Limits_of_Current_Retrievers,4,2
+q18,Cross-encoder vs Bi-encoder architectures,2604.17632__Code-Switching_Information_Retrieval_Benchmarks_Analysis_and_the_Limits_of_Current_Retrievers,3,2
+q18,Cross-encoder vs Bi-encoder architectures,2604.17632__Code-Switching_Information_Retrieval_Benchmarks_Analysis_and_the_Limits_of_Current_Retrievers,13,2
+q18,Cross-encoder vs Bi-encoder architectures,2604.17632__Code-Switching_Information_Retrieval_Benchmarks_Analysis_and_the_Limits_of_Current_Retrievers,8,2
+q18,Cross-encoder vs Bi-encoder architectures,Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks,3,2
+q18,Cross-encoder vs Bi-encoder architectures,2604.17632__Code-Switching_Information_Retrieval_Benchmarks_Analysis_and_the_Limits_of_Current_Retrievers,1,2
+q19,Evaluating retrieval systems beyond the BEIR benchmark,BEIR,10,2
+q19,Evaluating retrieval systems beyond the BEIR benchmark,BEIR,2,2
+q19,Evaluating retrieval systems beyond the BEIR benchmark,BEIR,1,2
+q19,Evaluating retrieval systems beyond the BEIR benchmark,BEIR,9,2
+q19,Evaluating retrieval systems beyond the BEIR benchmark,BEIR,7,2
+q19,Evaluating retrieval systems beyond the BEIR benchmark,BEIR,5,2
+q19,Evaluating retrieval systems beyond the BEIR benchmark,BEIR,4,2
+q19,Evaluating retrieval systems beyond the BEIR benchmark,BEIR,3,2
+q20,Scaling dense retrieval to billions of documents,BEIR,3,2
+q20,Scaling dense retrieval to billions of documents,2604.18508__Document-as-Image_Representations_Fall_Short_for_Scientific_Retrieval,2,2
+q20,Scaling dense retrieval to billions of documents,01bool,2,2
+q20,Scaling dense retrieval to billions of documents,BEIR,8,2
+q20,Scaling dense retrieval to billions of documents,2604.17555__COSEARCH_Joint_Training_of_Reasoning_and_Document_Ranking_via_Reinforcement_Learning_for_Agentic_Search,4,2
+q20,Scaling dense retrieval to billions of documents,01bool,3,2
+q20,Scaling dense retrieval to billions of documents,2604.17555__COSEARCH_Joint_Training_of_Reasoning_and_Document_Ranking_via_Reinforcement_Learning_for_Agentic_Search,18,2
+q21,Open problems in retrieval-augmented generation,2604.18584__MathNet_a_Global_Multimodal_Benchmark_for_Mathematical_Reasoning_and_Retrieval,2,2
+q21,Open problems in retrieval-augmented generation,2604.18424__Context-Aware_Search_and_Retrieval_Under_Token_Erasure,13,2
+q21,Open problems in retrieval-augmented generation,2604.18584__MathNet_a_Global_Multimodal_Benchmark_for_Mathematical_Reasoning_and_Retrieval,4,2
+q21,Open problems in retrieval-augmented generation,2604.18362__ArbGraph_Conflict-Aware_Evidence_Arbitration_for_Reliable_Long-Form_Retrieval-Augmented_Generation,21,2
+q21,Open problems in retrieval-augmented generation,2604.18509__MASS-RAG_Multi-Agent_Synthesis_Retrieval-Augmented_Generation,10,2
+q21,Open problems in retrieval-augmented generation,2604.18509__MASS-RAG_Multi-Agent_Synthesis_Retrieval-Augmented_Generation,9,2
+q21,Open problems in retrieval-augmented generation,2604.17555__COSEARCH_Joint_Training_of_Reasoning_and_Document_Ranking_via_Reinforcement_Learning_for_Agentic_Search,12,2
+q21,Open problems in retrieval-augmented generation,2604.18584__MathNet_a_Global_Multimodal_Benchmark_for_Mathematical_Reasoning_and_Retrieval,10,2
+q22,Comparing learned sparse retrieval (SPLADE) with dense vectors,2604.18584__MathNet_a_Global_Multimodal_Benchmark_for_Mathematical_Reasoning_and_Retrieval,11,2
+q22,Comparing learned sparse retrieval (SPLADE) with dense vectors,2604.18424__Context-Aware_Search_and_Retrieval_Under_Token_Erasure,5,2
+q22,Comparing learned sparse retrieval (SPLADE) with dense vectors,2604.18424__Context-Aware_Search_and_Retrieval_Under_Token_Erasure,1,2
+q22,Comparing learned sparse retrieval (SPLADE) with dense vectors,BEIR,8,2
+q22,Comparing learned sparse retrieval (SPLADE) with dense vectors,BEIR,3,2
+q22,Comparing learned sparse retrieval (SPLADE) with dense vectors,BEIR,5,2
+q22,Comparing learned sparse retrieval (SPLADE) with dense vectors,BEIR,6,2
+q23,Best practices for building a local vector search engine,2604.17484__Matlas_A_Semantic_Search_Engine_for_Mathematics,3,2
+q23,Best practices for building a local vector search engine,2604.17626__Toward_Reusability_of_AI_Models_Using_Dynamic_Updates_of_AI_Documentation,2,0
+q23,Best practices for building a local vector search engine,2604.17626__Toward_Reusability_of_AI_Models_Using_Dynamic_Updates_of_AI_Documentation,3,0
+q23,Best practices for building a local vector search engine,2604.17626__Toward_Reusability_of_AI_Models_Using_Dynamic_Updates_of_AI_Documentation,1,0
+q23,Best practices for building a local vector search engine,2604.17739__Tool_Learning_Needs_Nothing_More_Than_a_Free_8B_Language_Model,8,0
+q23,Best practices for building a local vector search engine,2604.17484__Matlas_A_Semantic_Search_Engine_for_Mathematics,5,2
+q23,Best practices for building a local vector search engine,01bool,14,2
+q24,Role of re-ranking in modern search pipelines,2604.18424__Context-Aware_Search_and_Retrieval_Under_Token_Erasure,1,2
+q24,Role of re-ranking in modern search pipelines,2604.18327__PARM_Pipeline-Adapted_Reward_Model,1,2
+q24,Role of re-ranking in modern search pipelines,BEIR,8,2
+q24,Role of re-ranking in modern search pipelines,2604.17614__Characterizing_Model-Native_Skills,5,0
+q24,Role of re-ranking in modern search pipelines,2604.18539__Transition-Matrix_Regularization_for_Next_Dialogue_Act_Prediction_in_Counselling_Conversations,9,0
+q24,Role of re-ranking in modern search pipelines,2604.18146__Modular_Representation_Compression_Adapting_LLMs_for_Efficient_and_Effective_Recommendations,6,0
+q24,Role of re-ranking in modern search pipelines,2604.17968__From_Fallback_to_Frontline_When_Can_LLMs_be_Superior_Annotators_of_Human_Perspectives,1,0
+q24,Role of re-ranking in modern search pipelines,2604.17745__HiRAS_A_Hierarchical_Multi-Agent_Framework_for_Paper-to-Code_Generation_and_Execution,1,0
+q24,Role of re-ranking in modern search pipelines,2604.18146__Modular_Representation_Compression_Adapting_LLMs_for_Efficient_and_Effective_Recommendations,7,0
+q25,How are inverted indexes implemented in Rust search engines?,01bool,16,2
+q25,How are inverted indexes implemented in Rust search engines?,01bool,9,2
+q25,How are inverted indexes implemented in Rust search engines?,2604.18508__Document-as-Image_Representations_Fall_Short_for_Scientific_Retrieval,7,0
+q25,How are inverted indexes implemented in Rust search engines?,2604.18424__Context-Aware_Search_and_Retrieval_Under_Token_Erasure,1,2
+q25,How are inverted indexes implemented in Rust search engines?,01bool,7,2
+q25,How are inverted indexes implemented in Rust search engines?,01bool,17,2
+q25,How are inverted indexes implemented in Rust search engines?,2604.18235__Negative_Advantage_Is_a_Double-Edged_Sword_Calibrating_Advantage_in_GRPO_for_Deep_Search,1,2
+q25,How are inverted indexes implemented in Rust search engines?,2604.17484__Matlas_A_Semantic_Search_Engine_for_Mathematics,2,2
+q1,What is the formula for Reciprocal Rank Fusion?,2604.18124__TLoRA_Task-aware_Low_Rank_Adaptation_of_Large_Language_Models,13,0
+q1,What is the formula for Reciprocal Rank Fusion?,2604.18027__CodePivot_Bootstrapping_Multilingual_Transpilation_in_LLMs_via_Reinforcement_Learning_without_Parallel_Corpora,2,0
+q1,What is the formula for Reciprocal Rank Fusion?,2604.18328__FregeLogic_at_SemEval_2026_Task_11_A_Hybrid_Neuro-Symbolic_Architecture_for_Content-Robust_Syllogistic_Validity_Predicti,4,0
+q1,What is the formula for Reciprocal Rank Fusion?,2604.17555__COSEARCH_Joint_Training_of_Reasoning_and_Document_Ranking_via_Reinforcement_Learning_for_Agentic_Search,2,2
+q1,What is the formula for Reciprocal Rank Fusion?,2604.18327__PARM_Pipeline-Adapted_Reward_Model,7,0
+q1,What is the formula for Reciprocal Rank Fusion?,2604.17753__Evolutionary_Negative_Module_Pruning_for_Better_LoRA_Merging,5,0
+q1,What is the formula for Reciprocal Rank Fusion?,2604.17761__Contrastive_Attribution_in_the_Wild_An_Interpretability_Analysis_of_LLM_Failures_on_Realistic_Benchmarks,26,0
+q1,What is the formula for Reciprocal Rank Fusion?,2604.17569__MAPLE_A_Meta-learning_Framework_for_Cross-Prompt_Essay_Scoring,5,0
+q2,BM25 term frequency saturation parameter k1,2604.18128__Depth_Registers_Unlock_W4A4_on_SwiGLU_A_Reader_Generator_Decomposition,14,0
+q2,BM25 term frequency saturation parameter k1,2604.17501__CoAct_Co-Active_LLM_Preference_Learning_with_Human-AI_Synergy,8,0
+q2,BM25 term frequency saturation parameter k1,2604.18567__Latent_Phase-Shift_Rollback_Inference-Time_Error_Correction_via_Residual_Stream_Monitoring_and_KV-Cache_Steering,15,0
+q2,BM25 term frequency saturation parameter k1,2604.17794__Bridging_the_Reasoning_Gap_in_Vietnamese_with_Small_Language_Models_via_Test-Time_Scaling,6,0
+q2,BM25 term frequency saturation parameter k1,2604.17475__Waking_Up_Blind_Cold-Start_Optimization_of_Supervision-Free_Agentic_Trajectories_for_Grounded_Visual_Perception,24,0
+q2,BM25 term frequency saturation parameter k1,2604.17650__Measuring_Distribution_Shift_in_User_Prompts_and_Its_Effects_on_LLM_Performance,17,0
+q2,BM25 term frequency saturation parameter k1,2604.17714__Screen_Before_You_Interpret_A_Portable_Validity_Protocol_for_Benchmark-Based_LLM_Confidence_Signals,23,0
+q2,BM25 term frequency saturation parameter k1,2604.18293__An_Existence_Proof_for_Neural_Language_Models_That_Can_Explain_Garden-Path_Effects_via_Surprisal,8,0
+q2,BM25 term frequency saturation parameter k1,2604.18170__Copy-as-Decode_Grammar-Constrained_Parallel_Prefill_for_LLM_Editing,27,0
+q2,BM25 term frequency saturation parameter k1,2604.17680__MasterSet_A_Large-Scale_Benchmark_for_Must-Cite_Citation_Recommendation_in_the_AI_ML_Literature,28,0
+q3,What is the default value of the b parameter in BM25?,2604.18170__Copy-as-Decode_Grammar-Constrained_Parallel_Prefill_for_LLM_Editing,22,0
+q3,What is the default value of the b parameter in BM25?,2604.18508__Document-as-Image_Representations_Fall_Short_for_Scientific_Retrieval,14,2
+q3,What is the default value of the b parameter in BM25?,2604.18031__How_Creative_Are_Large_Language_Models_in_Generating_Molecules,6,0
+q3,What is the default value of the b parameter in BM25?,2604.18069__Modeling_Human_Perspectives_with_Socio-Demographic_Representations,11,0
+q3,What is the default value of the b parameter in BM25?,2604.18419__Knowing_When_to_Quit_A_Principled_Framework_for_Dynamic_Abstention_in_LLM_Reasoning,6,0
+q3,What is the default value of the b parameter in BM25?,2604.18307__Reasoning_Models_Know_What_s_Important_and_Encode_It_in_Their_Activations,24,0
+q3,What is the default value of the b parameter in BM25?,2604.17894__Automatic_Slide_Updating_with_User-Defined_Dynamic_Templates_and_Natural_Language_Instructions,33,0
+q3,What is the default value of the b parameter in BM25?,2604.18203__Multiplication_in_Multimodal_LLMs_Computation_with_Text_Image_and_Audio_Inputs,7,0
+q3,What is the default value of the b parameter in BM25?,2604.18170__Copy-as-Decode_Grammar-Constrained_Parallel_Prefill_for_LLM_Editing,24,0
+q4,Definition of nDCG@10,ICLR-2024-privacy-preserving-in-context-learning-with-differentially-private-few-shot-generation-Paper-Conference,7,0
+q4,Definition of nDCG@10,2604.18169__Beyond_Reproduction_A_Paired-Task_Framework_for_Assessing_LLM_Comprehension_and_Creativity_in_Literary_Translation,6,0
+q4,Definition of nDCG@10,2604.18200__Multi-LLM_Token_Filtering_and_Routing_for_Sequential_Recommendation,7,0
+q4,Definition of nDCG@10,2604.17808__Enabling_AI_ASICs_for_Zero_Knowledge_Proof,5,0
+q4,Definition of nDCG@10,2604.17574__Beyond_Fine-Tuning_In-Context_Learning_and_Chain-of-Thought_for_Reasoned_Distractor_Generation,6,0
+q4,Definition of nDCG@10,2604.17574__Beyond_Fine-Tuning_In-Context_Learning_and_Chain-of-Thought_for_Reasoned_Distractor_Generation,3,0
+q4,Definition of nDCG@10,2604.18580__Sessa_Selective_State_Space_Attention,113,0
+q4,Definition of nDCG@10,2604.17681__FedCRF_A_Federated_Cross-domain_Recommendation_Method_with_Semantic-driven_Deep_Knowledge_Fusion,18,0
+q4,Definition of nDCG@10,2604.18487__Adversarial_Humanities_Benchmark_Results_on_Stylistic_Robustness_in_Frontier_Model_Safety,1,0
+q4,Definition of nDCG@10,2604.18360__Omni-Embed-Audio_Leveraging_Multimodal_LLMs_for_Robust_Audio-Text_Retrieval,8,2
+q5,FAISS HNSW M parameter meaning,2604.17626__Toward_Reusability_of_AI_Models_Using_Dynamic_Updates_of_AI_Documentation,13,0
+q5,FAISS HNSW M parameter meaning,2604.18170__Copy-as-Decode_Grammar-Constrained_Parallel_Prefill_for_LLM_Editing,24,0
+q5,FAISS HNSW M parameter meaning,2604.17698__The_Geometric_Canary_Predicting_Steerability_and_Detecting_Drift_via_Representational_Stability,15,0
+q5,FAISS HNSW M parameter meaning,2604.17941__From_Heads_to_Neurons_Causal_Attribution_and_Steering_in_Multi-Task_Vision-Language_Models,5,0
+q5,FAISS HNSW M parameter meaning,2604.17837__Polysemantic_Experts_Monosemantic_Paths_Routing_as_Control_in_MoEs,9,0
+q5,FAISS HNSW M parameter meaning,2604.18170__Copy-as-Decode_Grammar-Constrained_Parallel_Prefill_for_LLM_Editing,6,0
+q5,FAISS HNSW M parameter meaning,2604.18398__AlphaContext_An_Evolutionary_Tree-based_Psychometric_Context_Generator_for_Creativity_Assessment,15,0
+q5,FAISS HNSW M parameter meaning,2604.18389__Understanding_the_Prompt_Sensitivity,5,0
+q5,FAISS HNSW M parameter meaning,2604.17626__Toward_Reusability_of_AI_Models_Using_Dynamic_Updates_of_AI_Documentation,28,0
+q6,What does IDF stand for in information retrieval?,2604.17979__Architecture_Matters_More_Than_Scale_A_Comparative_Study_of_Retrieval_and_Memory_Augmentation_for_Financial_QA_Under_SME,6,2
+q7,Cosine similarity formula for sentence embeddings,2604.18005__Diversity_Collapse_in_Multi-Agent_LLM_Systems_Structural_Coupling_and_Collective_Failure_in_Open-Ended_Idea_Generation,15,2
+q7,Cosine similarity formula for sentence embeddings,2604.18424__Context-Aware_Search_and_Retrieval_Under_Token_Erasure,5,2
+q7,Cosine similarity formula for sentence embeddings,2604.18005__Diversity_Collapse_in_Multi-Agent_LLM_Systems_Structural_Coupling_and_Collective_Failure_in_Open-Ended_Idea_Generation,19,2
+q7,Cosine similarity formula for sentence embeddings,2604.18187__Audio-DeepThinker_Progressive_Reasoning-Aware_Reinforcement_Learning_for_High-Quality_Chain-of-Thought_Emergence_in_Audi,4,0
+q7,Cosine similarity formula for sentence embeddings,2604.18112__Retrieval-Augmented_Multimodal_Model_for_Fake_News_Detection,4,2
+q8,Number of layers in BERT-base,2604.18452__ESsEN_Training_Compact_Discriminative_Vision-Language_Transformers_in_a_Low-Resource_Setting,5,0
+q8,Number of layers in BERT-base,2604.17976__ltzGLUE_Luxembourgish_General_Language_Understanding_Evaluation,12,0
+q8,Number of layers in BERT-base,2604.18556__GSQ_Highly-Accurate_Low-Precision_Scalar_Quantization_for_LLMs_via_Gumbel-Softmax_Sampling,9,0
+q8,Number of layers in BERT-base,2604.18452__ESsEN_Training_Compact_Discriminative_Vision-Language_Transformers_in_a_Low-Resource_Setting,4,0
+q8,Number of layers in BERT-base,2604.17941__From_Heads_to_Neurons_Causal_Attribution_and_Steering_in_Multi-Task_Vision-Language_Models,7,0
+q8,Number of layers in BERT-base,2604.18226__Model_in_Distress_Sentiment_Analysis_on_French_Synthetic_Social_Media,10,0
+q8,Number of layers in BERT-base,2604.17633__Copy_First_Translate_Later_Interpreting_Translation_Dynamics_in_Multilingual_Pretraining,6,0
+q8,Number of layers in BERT-base,2604.18187__Audio-DeepThinker_Progressive_Reasoning-Aware_Reinforcement_Learning_for_High-Quality_Chain-of-Thought_Emergence_in_Audi,5,0
+q8,Number of layers in BERT-base,2604.18584__MathNet_a_Global_Multimodal_Benchmark_for_Mathematical_Reasoning_and_Retrieval,24,0
+q9,How does chunk size affect retrieval accuracy?,Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks,8,2
+q9,How does chunk size affect retrieval accuracy?,2604.17866__Latent_Abstraction_for_Retrieval-Augmented_Generation,5,2
+q9,How does chunk size affect retrieval accuracy?,2604.17555__COSEARCH_Joint_Training_of_Reasoning_and_Document_Ranking_via_Reinforcement_Learning_for_Agentic_Search,1,2
+q9,How does chunk size affect retrieval accuracy?,BEIR,9,2
+q9,How does chunk size affect retrieval accuracy?,BEIR,1,2
+q9,How does chunk size affect retrieval accuracy?,2604.18508__Document-as-Image_Representations_Fall_Short_for_Scientific_Retrieval,9,2
+q9,How does chunk size affect retrieval accuracy?,2604.18424__Context-Aware_Search_and_Retrieval_Under_Token_Erasure,10,2
+q9,How does chunk size affect retrieval accuracy?,2604.18509__MASS-RAG_Multi-Agent_Synthesis_Retrieval-Augmented_Generation,6,2
+q9,How does chunk size affect retrieval accuracy?,2604.17555__COSEARCH_Joint_Training_of_Reasoning_and_Document_Ranking_via_Reinforcement_Learning_for_Agentic_Search,2,2
+q10,Mitigating hallucinations in large language models,2604.17982__Mitigating_Multimodal_Hallucination_via_Phase-wise_Self-reward,4,2
+q10,Mitigating hallucinations in large language models,2604.18509__MASS-RAG_Multi-Agent_Synthesis_Retrieval-Augmented_Generation,11,2
+q10,Mitigating hallucinations in large language models,2604.17982__Mitigating_Multimodal_Hallucination_via_Phase-wise_Self-reward,16,2
+q10,Mitigating hallucinations in large language models,2604.17982__Mitigating_Multimodal_Hallucination_via_Phase-wise_Self-reward,5,2
+q10,Mitigating hallucinations in large language models,2604.17982__Mitigating_Multimodal_Hallucination_via_Phase-wise_Self-reward,11,2
+q11,Why do dense retrievers underperform on out-of-domain data?,2604.17866__Latent_Abstraction_for_Retrieval-Augmented_Generation,2,2
+q11,Why do dense retrievers underperform on out-of-domain data?,2604.17894__Automatic_Slide_Updating_with_User-Defined_Dynamic_Templates_and_Natural_Language_Instructions,4,0
+q11,Why do dense retrievers underperform on out-of-domain data?,2604.17866__Latent_Abstraction_for_Retrieval-Augmented_Generation,6,2
+q11,Why do dense retrievers underperform on out-of-domain data?,2604.18508__Document-as-Image_Representations_Fall_Short_for_Scientific_Retrieval,9,2
+q11,Why do dense retrievers underperform on out-of-domain data?,2604.17878__RankUp_Towards_High-rank_Representations_for_Large_Scale_Advertising_Recommender_Systems,8,0
+q11,Why do dense retrievers underperform on out-of-domain data?,2604.18508__Document-as-Image_Representations_Fall_Short_for_Scientific_Retrieval,3,2
+q12,Trade-offs between recall and precision in hybrid search,2604.18187__Audio-DeepThinker_Progressive_Reasoning-Aware_Reinforcement_Learning_for_High-Quality_Chain-of-Thought_Emergence_in_Audi,6,0
+q12,Trade-offs between recall and precision in hybrid search,Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks,9,2
+q12,Trade-offs between recall and precision in hybrid search,2604.18396__River-LLM_Large_Language_Model_Seamless_Exit_Based_on_KV_Share,3,0
+q12,Trade-offs between recall and precision in hybrid search,2604.17857__On_the_Emergence_of_Syntax_by_Means_of_Local_Interaction,19,0
+q12,Trade-offs between recall and precision in hybrid search,2604.18170__Copy-as-Decode_Grammar-Constrained_Parallel_Prefill_for_LLM_Editing,3,0
+q12,Trade-offs between recall and precision in hybrid search,2604.17842__QuickScope_Certifying_Hard_Questions_in_Dynamic_LLM_Benchmarks,5,0
+q12,Trade-offs between recall and precision in hybrid search,2604.18351__Balanced_Co-Clustering_of_Users_and_Items_for_Embedding_Table_Compression_in_Recommender_Systems,8,0
+q12,Trade-offs between recall and precision in hybrid search,2604.17738__Mira-Embeddings-V1_Domain-Adapted_Semantic_Reranking_for_Recruitment_via_LLM-Synthesized_Data,7,2
+q12,Trade-offs between recall and precision in hybrid search,2604.17857__On_the_Emergence_of_Syntax_by_Means_of_Local_Interaction,13,0
+q12,Trade-offs between recall and precision in hybrid search,2604.17943__Domain-oriented_RAG_Assessment_DoRA_Synthetic_Benchmarking_for_RAG-based_Question_Answering_on_Defense_Documents,17,2
+q13,How does query expansion improve sparse retrieval?,2604.18508__Document-as-Image_Representations_Fall_Short_for_Scientific_Retrieval,15,2
+q13,How does query expansion improve sparse retrieval?,2604.18508__Document-as-Image_Representations_Fall_Short_for_Scientific_Retrieval,6,2
+q13,How does query expansion improve sparse retrieval?,2604.17886__Latent_Preference_Modeling_for_Cross-Session_Personalized_Tool_Calling,8,0
+q13,How does query expansion improve sparse retrieval?,MS-MARCO,6,2
+q13,How does query expansion improve sparse retrieval?,2604.17555__COSEARCH_Joint_Training_of_Reasoning_and_Document_Ranking_via_Reinforcement_Learning_for_Agentic_Search,1,2
+q13,How does query expansion improve sparse retrieval?,2604.18508__Document-as-Image_Representations_Fall_Short_for_Scientific_Retrieval,4,2
+q14,The role of negative sampling in training dense encoders,2604.17667__Peerispect_Claim_Verification_in_Scientific_Peer_Reviews,4,0
+q14,The role of negative sampling in training dense encoders,2604.17656__Video-Robin_Autoregressive_Diffusion_Planning_for_Intent-Grounded_Video-to-Music_Generation,8,0
+q14,The role of negative sampling in training dense encoders,2604.18146__Modular_Representation_Compression_Adapting_LLMs_for_Efficient_and_Effective_Recommendations,3,0
+q14,The role of negative sampling in training dense encoders,2604.18249__Where_Do_Self-Supervised_Speech_Models_Become_Unfair,2,0
+q14,The role of negative sampling in training dense encoders,2604.18105__NIM4-ASR_Towards_Efficient_Robust_and_Customizable_Real-Time_LLM-Based_ASR,8,0
+q14,The role of negative sampling in training dense encoders,2604.17512__ONTO_A_Token-Efficient_Columnar_Notation_for_LLM_Input_Optimization,6,0
+q14,The role of negative sampling in training dense encoders,2604.17633__Copy_First_Translate_Later_Interpreting_Translation_Dynamics_in_Multilingual_Pretraining,9,0
+q14,The role of negative sampling in training dense encoders,2604.18146__Modular_Representation_Compression_Adapting_LLMs_for_Efficient_and_Effective_Recommendations,6,0
+q14,The role of negative sampling in training dense encoders,2604.17930__Heterogeneity_in_Formal_Linguistic_Competence_of_Language_Models_Is_Data_the_Real_Bottleneck,3,0
+q15,Impact of tokenization on multilingual retrieval,2604.18424__Context-Aware_Search_and_Retrieval_Under_Token_Erasure,4,2
+q15,Impact of tokenization on multilingual retrieval,Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks,8,2
+q15,Impact of tokenization on multilingual retrieval,2604.17979__Architecture_Matters_More_Than_Scale_A_Comparative_Study_of_Retrieval_and_Memory_Augmentation_for_Financial_QA_Under_SME,3,2
+q15,Impact of tokenization on multilingual retrieval,2604.17866__Latent_Abstraction_for_Retrieval-Augmented_Generation,2,2
+q15,Impact of tokenization on multilingual retrieval,2604.17866__Latent_Abstraction_for_Retrieval-Augmented_Generation,8,2
+q15,Impact of tokenization on multilingual retrieval,2604.17512__ONTO_A_Token-Efficient_Columnar_Notation_for_LLM_Input_Optimization,4,2
+q15,Impact of tokenization on multilingual retrieval,2604.18424__Context-Aware_Search_and_Retrieval_Under_Token_Erasure,1,2
+q15,Impact of tokenization on multilingual retrieval,2604.18401__StepPO_Step-Aligned_Policy_Optimization_for_Agentic_Reinforcement_Learning,4,0
+q15,Impact of tokenization on multilingual retrieval,2604.18362__ArbGraph_Conflict-Aware_Evidence_Arbitration_for_Reliable_Long-Form_Retrieval-Augmented_Generation,2,2
+q15,Impact of tokenization on multilingual retrieval,2604.17555__COSEARCH_Joint_Training_of_Reasoning_and_Document_Ranking_via_Reinforcement_Learning_for_Agentic_Search,1,2
+q16,Why use late interaction models like ColBERT?,2604.18580__Sessa_Selective_State_Space_Attention,1,0
+q16,Why use late interaction models like ColBERT?,2604.17815__Navigating_the_Conceptual_Multiverse,25,0
+q16,Why use late interaction models like ColBERT?,2604.18486__OneVL_One-Step_Latent_Reasoning_and_Planning_with_Vision-Language_Explanation,10,0
+q16,Why use late interaction models like ColBERT?,2604.18486__OneVL_One-Step_Latent_Reasoning_and_Planning_with_Vision-Language_Explanation,14,0
+q16,Why use late interaction models like ColBERT?,2604.18486__OneVL_One-Step_Latent_Reasoning_and_Planning_with_Vision-Language_Explanation,6,0
+q16,Why use late interaction models like ColBERT?,2604.17718__Do_LLMs_Use_Cultural_Knowledge_Without_Being_Told_A_Multilingual_Evaluation_of_Implicit_Pragmatic_Adaptation,3,0
+q16,Why use late interaction models like ColBERT?,2604.18486__OneVL_One-Step_Latent_Reasoning_and_Planning_with_Vision-Language_Explanation,3,0
+q16,Why use late interaction models like ColBERT?,2604.18486__OneVL_One-Step_Latent_Reasoning_and_Planning_with_Vision-Language_Explanation,4,0
+q17,Challenges in offline document search,2604.17827__Learning_to_Seek_Help_Dynamic_Collaboration_Between_Small_and_Large_Language_Models,22,0
+q17,Challenges in offline document search,2604.17609__Agents_Explore_but_Agents_Ignore_LLMs_Lack_Environmental_Curiosity,6,0
+q17,Challenges in offline document search,2604.17609__Agents_Explore_but_Agents_Ignore_LLMs_Lack_Environmental_Curiosity,2,0
+q17,Challenges in offline document search,2604.17609__Agents_Explore_but_Agents_Ignore_LLMs_Lack_Environmental_Curiosity,19,0
+q17,Challenges in offline document search,2604.17943__Domain-oriented_RAG_Assessment_DoRA_Synthetic_Benchmarking_for_RAG-based_Question_Answering_on_Defense_Documents,19,2
+q17,Challenges in offline document search,BEIR,10,2
+q17,Challenges in offline document search,2604.17943__Domain-oriented_RAG_Assessment_DoRA_Synthetic_Benchmarking_for_RAG-based_Question_Answering_on_Defense_Documents,21,2
+q17,Challenges in offline document search,2604.17609__Agents_Explore_but_Agents_Ignore_LLMs_Lack_Environmental_Curiosity,20,2
+q17,Challenges in offline document search,2604.17739__Tool_Learning_Needs_Nothing_More_Than_a_Free_8B_Language_Model,13,0
+q17,Challenges in offline document search,2604.17972__Modeling_Multiple_Support_Strategies_within_a_Single_Turn_for_Emotional_Support_Conversations,14,0
+q18,Cross-encoder vs Bi-encoder architectures,BEIR,3,2
+q18,Cross-encoder vs Bi-encoder architectures,2604.17745__HiRAS_A_Hierarchical_Multi-Agent_Framework_for_Paper-to-Code_Generation_and_Execution,24,0
+q18,Cross-encoder vs Bi-encoder architectures,Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks,9,2
+q18,Cross-encoder vs Bi-encoder architectures,2604.18105__NIM4-ASR_Towards_Efficient_Robust_and_Customizable_Real-Time_LLM-Based_ASR,4,2
+q18,Cross-encoder vs Bi-encoder architectures,2604.18170__Copy-as-Decode_Grammar-Constrained_Parallel_Prefill_for_LLM_Editing,17,0
+q18,Cross-encoder vs Bi-encoder architectures,2604.17837__Polysemantic_Experts_Monosemantic_Paths_Routing_as_Control_in_MoEs,3,0
+q18,Cross-encoder vs Bi-encoder architectures,2604.18170__Copy-as-Decode_Grammar-Constrained_Parallel_Prefill_for_LLM_Editing,16,0
+q18,Cross-encoder vs Bi-encoder architectures,SBERT (Reimers),7,2
+q18,Cross-encoder vs Bi-encoder architectures,BEIR,10,2
+q19,Evaluating retrieval systems beyond the BEIR benchmark,2604.17866__Latent_Abstraction_for_Retrieval-Augmented_Generation,8,2
+q20,Scaling dense retrieval to billions of documents,2604.18509__MASS-RAG_Multi-Agent_Synthesis_Retrieval-Augmented_Generation,6,2
+q20,Scaling dense retrieval to billions of documents,Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks,8,2
+q20,Scaling dense retrieval to billions of documents,2604.18508__Document-as-Image_Representations_Fall_Short_for_Scientific_Retrieval,4,2
+q20,Scaling dense retrieval to billions of documents,01bool,1,2
+q20,Scaling dense retrieval to billions of documents,MS-MARCO,6,2
+q20,Scaling dense retrieval to billions of documents,01bool,4,2
+q20,Scaling dense retrieval to billions of documents,2604.17680__MasterSet_A_Large-Scale_Benchmark_for_Must-Cite_Citation_Recommendation_in_the_AI_ML_Literature,21,0
+q20,Scaling dense retrieval to billions of documents,2604.18508__Document-as-Image_Representations_Fall_Short_for_Scientific_Retrieval,9,2
+q21,Open problems in retrieval-augmented generation,2604.18234__Evaluating_Multi-Hop_Reasoning_in_RAG_Systems_A_Comparison_of_LLM-Based_Retriever_Evaluation_Strategies,14,2
+q21,Open problems in retrieval-augmented generation,2604.17555__COSEARCH_Joint_Training_of_Reasoning_and_Document_Ranking_via_Reinforcement_Learning_for_Agentic_Search,1,2
+q21,Open problems in retrieval-augmented generation,2604.17979__Architecture_Matters_More_Than_Scale_A_Comparative_Study_of_Retrieval_and_Memory_Augmentation_for_Financial_QA_Under_SME,3,2
+q21,Open problems in retrieval-augmented generation,2604.18362__ArbGraph_Conflict-Aware_Evidence_Arbitration_for_Reliable_Long-Form_Retrieval-Augmented_Generation,2,2
+q21,Open problems in retrieval-augmented generation,2604.18362__ArbGraph_Conflict-Aware_Evidence_Arbitration_for_Reliable_Long-Form_Retrieval-Augmented_Generation,10,2
+q21,Open problems in retrieval-augmented generation,2604.17866__Latent_Abstraction_for_Retrieval-Augmented_Generation,1,2
+q21,Open problems in retrieval-augmented generation,2604.18570__A_multimodal_and_temporal_foundation_model_for_virtual_patient_representations_at_healthcare_system_scale,49,0
+q21,Open problems in retrieval-augmented generation,BEIR,1,2
+q22,Comparing learned sparse retrieval (SPLADE) with dense vectors,2604.18478__WorldDB_A_Vector_Graph-of-Worlds_Memory_Engine_with_Ontology-Aware_Write-Time_Reconciliation,2,2
+q22,Comparing learned sparse retrieval (SPLADE) with dense vectors,2604.18509__MASS-RAG_Multi-Agent_Synthesis_Retrieval-Augmented_Generation,6,2
+q22,Comparing learned sparse retrieval (SPLADE) with dense vectors,MS-MARCO,6,2
+q22,Comparing learned sparse retrieval (SPLADE) with dense vectors,BEIR,7,2
+q22,Comparing learned sparse retrieval (SPLADE) with dense vectors,2604.17906__Bayesian_Active_Learning_with_Gaussian_Processes_Guided_by_LLM_Relevance_Scoring_for_Dense_Passage_Retrieval,8,2
+q22,Comparing learned sparse retrieval (SPLADE) with dense vectors,2604.18257__DocQAC_Adaptive_Trie-Guided_Decoding_for_Effective_In-Document_Query_Auto-Completion,6,2
+q22,Comparing learned sparse retrieval (SPLADE) with dense vectors,2604.17894__Automatic_Slide_Updating_with_User-Defined_Dynamic_Templates_and_Natural_Language_Instructions,6,0
+q22,Comparing learned sparse retrieval (SPLADE) with dense vectors,01bool,3,2
+q22,Comparing learned sparse retrieval (SPLADE) with dense vectors,2604.17632__Code-Switching_Information_Retrieval_Benchmarks_Analysis_and_the_Limits_of_Current_Retrievers,4,2
+q23,Best practices for building a local vector search engine,2604.17658__Towards_Self-Improving_Error_Diagnosis_in_Multi-Agent_Systems,6,0
+q23,Best practices for building a local vector search engine,2604.17658__Towards_Self-Improving_Error_Diagnosis_in_Multi-Agent_Systems,13,0
+q23,Best practices for building a local vector search engine,2604.17894__Automatic_Slide_Updating_with_User-Defined_Dynamic_Templates_and_Natural_Language_Instructions,15,0
+q23,Best practices for building a local vector search engine,2604.17842__QuickScope_Certifying_Hard_Questions_in_Dynamic_LLM_Benchmarks,6,0
+q23,Best practices for building a local vector search engine,2604.17894__Automatic_Slide_Updating_with_User-Defined_Dynamic_Templates_and_Natural_Language_Instructions,17,0
+q23,Best practices for building a local vector search engine,2604.17842__QuickScope_Certifying_Hard_Questions_in_Dynamic_LLM_Benchmarks,1,0
+q23,Best practices for building a local vector search engine,2604.17943__Domain-oriented_RAG_Assessment_DoRA_Synthetic_Benchmarking_for_RAG-based_Question_Answering_on_Defense_Documents,2,2
+q23,Best practices for building a local vector search engine,2604.18543__ClawEnvKit_Automatic_Environment_Generation_for_Claw-Like_Agents,3,0
+q23,Best practices for building a local vector search engine,2604.17886__Latent_Preference_Modeling_for_Cross-Session_Personalized_Tool_Calling,3,0
+q23,Best practices for building a local vector search engine,2604.18292__Agent-World_Scaling_Real-World_Environment_Synthesis_for_Evolving_General_Agent_Intelligence,44,0
+q24,Role of re-ranking in modern search pipelines,2604.17738__Mira-Embeddings-V1_Domain-Adapted_Semantic_Reranking_for_Recruitment_via_LLM-Synthesized_Data,2,2
+q24,Role of re-ranking in modern search pipelines,BEIR,7,2
+q24,Role of re-ranking in modern search pipelines,2604.17738__Mira-Embeddings-V1_Domain-Adapted_Semantic_Reranking_for_Recruitment_via_LLM-Synthesized_Data,1,2
+q24,Role of re-ranking in modern search pipelines,2604.18327__PARM_Pipeline-Adapted_Reward_Model,8,2
+q24,Role of re-ranking in modern search pipelines,2604.18327__PARM_Pipeline-Adapted_Reward_Model,7,2
+q24,Role of re-ranking in modern search pipelines,2604.18292__Agent-World_Scaling_Real-World_Environment_Synthesis_for_Evolving_General_Agent_Intelligence,14,0
+q24,Role of re-ranking in modern search pipelines,2604.18327__PARM_Pipeline-Adapted_Reward_Model,2,2
+q25,How are inverted indexes implemented in Rust search engines?,01bool,6,2
+q25,How are inverted indexes implemented in Rust search engines?,2604.17842__QuickScope_Certifying_Hard_Questions_in_Dynamic_LLM_Benchmarks,9,0
+q25,How are inverted indexes implemented in Rust search engines?,01bool,11,2
+q25,How are inverted indexes implemented in Rust search engines?,2604.18087__Mix_and_Match_Context_Pairing_for_Scalable_Topic-Controlled_Educational_Summarisation,5,0
+q1,What is the formula for Reciprocal Rank Fusion?,2604.18106__Efficient_Low-Resource_Language_Adaptation_via_Multi-Source_Dynamic_Logit_Fusion,5,0
+q3,What is the default value of the b parameter in BM25?,2604.17906__Bayesian_Active_Learning_with_Gaussian_Processes_Guided_by_LLM_Relevance_Scoring_for_Dense_Passage_Retrieval,15,2
+q3,What is the default value of the b parameter in BM25?,2604.17633__Copy_First_Translate_Later_Interpreting_Translation_Dynamics_in_Multilingual_Pretraining,26,0
+q3,What is the default value of the b parameter in BM25?,2604.18419__Knowing_When_to_Quit_A_Principled_Framework_for_Dynamic_Abstention_in_LLM_Reasoning,5,0
+q5,FAISS HNSW M parameter meaning,2604.18567__Latent_Phase-Shift_Rollback_Inference-Time_Error_Correction_via_Residual_Stream_Monitoring_and_KV-Cache_Steering,20,0
+q5,FAISS HNSW M parameter meaning,2604.18510__Different_Paths_to_Harmful_Compliance_Behavioral_Side_Effects_and_Mechanistic_Divergence_Across_LLM_Jailbreaks,18,0
+q8,Number of layers in BERT-base,2604.17680__MasterSet_A_Large-Scale_Benchmark_for_Must-Cite_Citation_Recommendation_in_the_AI_ML_Literature,34,0
+q8,Number of layers in BERT-base,2604.17674__Towards_Intelligent_Legal_Document_Analysis_CNN-Driven_Classification_of_Case_Law_Texts,8,0
+q8,Number of layers in BERT-base,2604.18452__ESsEN_Training_Compact_Discriminative_Vision-Language_Transformers_in_a_Low-Resource_Setting,7,0
+q8,Number of layers in BERT-base,2604.17633__Copy_First_Translate_Later_Interpreting_Translation_Dynamics_in_Multilingual_Pretraining,7,0
+q9,How does chunk size affect retrieval accuracy?,2604.18199__Linear-Time_and_Constant-Memory_Text_Embeddings_Based_on_Recurrent_Language_Models,7,0
+q9,How does chunk size affect retrieval accuracy?,2604.18424__Context-Aware_Search_and_Retrieval_Under_Token_Erasure,1,2
+q9,How does chunk size affect retrieval accuracy?,Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks,9,2
+q9,How does chunk size affect retrieval accuracy?,2604.18584__MathNet_a_Global_Multimodal_Benchmark_for_Mathematical_Reasoning_and_Retrieval,2,0
+q9,How does chunk size affect retrieval accuracy?,01bool,14,2
+q10,Mitigating hallucinations in large language models,Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks,1,2
+q10,Mitigating hallucinations in large language models,2604.17982__Mitigating_Multimodal_Hallucination_via_Phase-wise_Self-reward,8,2
+q10,Mitigating hallucinations in large language models,2604.18105__NIM4-ASR_Towards_Efficient_Robust_and_Customizable_Real-Time_LLM-Based_ASR,2,2
+q11,Why do dense retrievers underperform on out-of-domain data?,2604.17906__Bayesian_Active_Learning_with_Gaussian_Processes_Guided_by_LLM_Relevance_Scoring_for_Dense_Passage_Retrieval,9,2
+q11,Why do dense retrievers underperform on out-of-domain data?,2604.17667__Peerispect_Claim_Verification_in_Scientific_Peer_Reviews,4,0
+q11,Why do dense retrievers underperform on out-of-domain data?,2604.17738__Mira-Embeddings-V1_Domain-Adapted_Semantic_Reranking_for_Recruitment_via_LLM-Synthesized_Data,2,2
+q12,Trade-offs between recall and precision in hybrid search,2604.17738__Mira-Embeddings-V1_Domain-Adapted_Semantic_Reranking_for_Recruitment_via_LLM-Synthesized_Data,8,2
+q12,Trade-offs between recall and precision in hybrid search,2604.17785__Forget_What_Matters_Keep_the_Rest_Selective_Unlearning_of_Informative_Tokens,12,0
+q12,Trade-offs between recall and precision in hybrid search,2604.18349__HiGMem_A_Hierarchical_and_LLM-Guided_Memory_System_for_Long-Term_Conversational_Agents,4,0
+q13,How does query expansion improve sparse retrieval?,2604.18360__Omni-Embed-Audio_Leveraging_Multimodal_LLMs_for_Robust_Audio-Text_Retrieval,4,2
+q13,How does query expansion improve sparse retrieval?,2604.17632__Code-Switching_Information_Retrieval_Benchmarks_Analysis_and_the_Limits_of_Current_Retrievers,2,2
+q13,How does query expansion improve sparse retrieval?,2604.18257__DocQAC_Adaptive_Trie-Guided_Decoding_for_Effective_In-Document_Query_Auto-Completion,6,2
+q13,How does query expansion improve sparse retrieval?,2604.18424__Context-Aware_Search_and_Retrieval_Under_Token_Erasure,9,2
+q14,The role of negative sampling in training dense encoders,2604.17866__Latent_Abstraction_for_Retrieval-Augmented_Generation,4,2
+q14,The role of negative sampling in training dense encoders,2604.17632__Code-Switching_Information_Retrieval_Benchmarks_Analysis_and_the_Limits_of_Current_Retrievers,4,2
+q14,The role of negative sampling in training dense encoders,2604.17614__Characterizing_Model-Native_Skills,9,0
+q14,The role of negative sampling in training dense encoders,2604.18556__GSQ_Highly-Accurate_Low-Precision_Scalar_Quantization_for_LLMs_via_Gumbel-Softmax_Sampling,4,0
+q14,The role of negative sampling in training dense encoders,2604.17753__Evolutionary_Negative_Module_Pruning_for_Better_LoRA_Merging,9,0
+q15,Impact of tokenization on multilingual retrieval,2604.17943__Domain-oriented_RAG_Assessment_DoRA_Synthetic_Benchmarking_for_RAG-based_Question_Answering_on_Defense_Documents,4,2
+q15,Impact of tokenization on multilingual retrieval,2604.18257__DocQAC_Adaptive_Trie-Guided_Decoding_for_Effective_In-Document_Query_Auto-Completion,6,2
+q15,Impact of tokenization on multilingual retrieval,2604.17632__Code-Switching_Information_Retrieval_Benchmarks_Analysis_and_the_Limits_of_Current_Retrievers,7,2
+q16,Why use late interaction models like ColBERT?,2604.17815__Navigating_the_Conceptual_Multiverse,17,0
+q16,Why use late interaction models like ColBERT?,2604.18486__OneVL_One-Step_Latent_Reasoning_and_Planning_with_Vision-Language_Explanation,21,0
+q17,Challenges in offline document search,2604.18375__IceBreaker_for_Conversational_Agents_Breaking_the_First-Message_Barrier_with_Personalized_Starters,5,0
+q18,Cross-encoder vs Bi-encoder architectures,2604.18423__BhashaSutra_A_Task-Centric_Unified_Survey_of_Indian_NLP_Datasets_Corpora_and_Resources,42,0
+q18,Cross-encoder vs Bi-encoder architectures,2604.18539__Transition-Matrix_Regularization_for_Next_Dialogue_Act_Prediction_in_Counselling_Conversations,8,0
+q18,Cross-encoder vs Bi-encoder architectures,2604.17632__Code-Switching_Information_Retrieval_Benchmarks_Analysis_and_the_Limits_of_Current_Retrievers,15,2
+q18,Cross-encoder vs Bi-encoder architectures,2604.18452__ESsEN_Training_Compact_Discriminative_Vision-Language_Transformers_in_a_Low-Resource_Setting,5,0
+q18,Cross-encoder vs Bi-encoder architectures,SBERT (Reimers),2,2
+q20,Scaling dense retrieval to billions of documents,2604.18424__Context-Aware_Search_and_Retrieval_Under_Token_Erasure,1,2
+q21,Open problems in retrieval-augmented generation,2604.18584__MathNet_a_Global_Multimodal_Benchmark_for_Mathematical_Reasoning_and_Retrieval,1,2
+q21,Open problems in retrieval-augmented generation,Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks,1,2
+q21,Open problems in retrieval-augmented generation,2604.17866__Latent_Abstraction_for_Retrieval-Augmented_Generation,2,2
+q22,Comparing learned sparse retrieval (SPLADE) with dense vectors,2604.17906__Bayesian_Active_Learning_with_Gaussian_Processes_Guided_by_LLM_Relevance_Scoring_for_Dense_Passage_Retrieval,13,2
+q22,Comparing learned sparse retrieval (SPLADE) with dense vectors,2604.17667__Peerispect_Claim_Verification_in_Scientific_Peer_Reviews,4,0
+q22,Comparing learned sparse retrieval (SPLADE) with dense vectors,2604.17680__MasterSet_A_Large-Scale_Benchmark_for_Must-Cite_Citation_Recommendation_in_the_AI_ML_Literature,13,0
+q22,Comparing learned sparse retrieval (SPLADE) with dense vectors,2604.17738__Mira-Embeddings-V1_Domain-Adapted_Semantic_Reranking_for_Recruitment_via_LLM-Synthesized_Data,2,2
+q24,Role of re-ranking in modern search pipelines,2604.18327__PARM_Pipeline-Adapted_Reward_Model,14,2
+q24,Role of re-ranking in modern search pipelines,MS-MARCO,6,2
+q24,Role of re-ranking in modern search pipelines,2604.18580__Sessa_Selective_State_Space_Attention,1,0
+q24,Role of re-ranking in modern search pipelines,2604.18327__PARM_Pipeline-Adapted_Reward_Model,3,2
+q25,How are inverted indexes implemented in Rust search engines?,01bool,18,2

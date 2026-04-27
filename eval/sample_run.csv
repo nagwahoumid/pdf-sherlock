@@ -1,0 +1,4 @@
+query_id,query,doc_id,page,score
+q1,test query,doc_a,1,0.95
+q1,test query,doc_b,2,0.8
+q2,other query,doc_a,,0.7
